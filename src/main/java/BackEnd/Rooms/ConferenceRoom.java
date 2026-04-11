@@ -1,4 +1,4 @@
-package BackEnd;
+package BackEnd.Rooms;
 
 public class ConferenceRoom extends Room {
     private boolean projectorStatus;

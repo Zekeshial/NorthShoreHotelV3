@@ -1,4 +1,4 @@
-package BackEnd;
+package BackEnd.Rooms;
 
 public abstract class Room {
 

@@ -1,6 +1,6 @@
-package BackEnd;
+package BackEnd.Amenities;
 
-public class Movie extends Amenity{
+public class Movie extends Amenity {
 
     private String movieName;
     private String movieLength;

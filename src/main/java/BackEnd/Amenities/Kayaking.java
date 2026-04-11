@@ -1,31 +1,37 @@
-package BackEnd;
+package BackEnd.Amenities;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Skiing extends Amenity implements Rentable{
+
+public class Kayaking extends Amenity implements Rentable {
 
     private String location, difficulty;
     private boolean gearStatus;
 
-    public Skiing(String amenityName, boolean amenityAvailability, double amenityPrice, String amenityDescription, String location, String difficulty, boolean gearStatus) {
+
+    public Kayaking(String amenityName, boolean amenityAvailability, double amenityPrice, String amenityDescription, String location, String difficulty, boolean gearStatus) {
         super(amenityName, amenityAvailability, amenityPrice, amenityDescription);
         this.location = location;
         this.difficulty = difficulty;
         this.gearStatus = gearStatus;
+
     }
 
-    public Skiing(String location, String difficulty, boolean gearStatus) {
+    public Kayaking(String location, String difficulty, boolean gearStatus) {
         this.location = location;
         this.difficulty = difficulty;
         this.gearStatus = gearStatus;
     }
 
-    public Skiing() {
+
+    public Kayaking() {
         this.location = null;
         this.difficulty = null;
         this.gearStatus = false;
+
     }
+
 
     public String getLocation() {
         return location;
@@ -51,9 +57,10 @@ public class Skiing extends Amenity implements Rentable{
         this.gearStatus = gearStatus;
     }
 
+
     @Override
     public String toString() {
-        return "Skiing{" +
+        return "Kayaking{" +
                 "amenityName='" + getAmenityName() + '\'' +
                 ", amenityAvailability=" + isAmenityAvailability() +
                 ", amenityPrice=" + getAmenityPrice() +
@@ -64,16 +71,19 @@ public class Skiing extends Amenity implements Rentable{
                 '}';
     }
 
+
     @Override
     public void rentGear() {
+
         if (gearStatus) {
             System.out.println("You have already rented gear");
         } else {
             gearStatus = true;
-            BigDecimal price = new BigDecimal(getAmenityPrice()+15);
+            BigDecimal price = new BigDecimal(getAmenityPrice()+10);
             BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
             double newPrice = roundedPrice.doubleValue();
             setAmenityPrice(newPrice);
         }
     }
+
 }

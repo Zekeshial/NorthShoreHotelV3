@@ -1,5 +1,7 @@
 package BackEnd;
 
+import BackEnd.Amenities.*;
+
 import java.util.ArrayList;
 
 public class Catalog {
@@ -146,6 +148,14 @@ public class Catalog {
         } else {
             return null;
         }
+    }
+
+    public void addAmenity(Amenity amenityToAdd) {
+        list.add(amenityToAdd);
+    }
+
+    public void removeAmenity(Amenity amenityToRemove) {
+        list.remove(amenityToRemove);
     }
 
 

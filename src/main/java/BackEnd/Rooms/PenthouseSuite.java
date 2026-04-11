@@ -1,6 +1,6 @@
-package BackEnd;
+package BackEnd.Rooms;
 
-public class PenthouseSuite extends Room{
+public class PenthouseSuite extends Room {
 
     private boolean kitchenStatus, suiteHottubStatus;
     private int suiteNumBeds;

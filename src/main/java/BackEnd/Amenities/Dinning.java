@@ -1,9 +1,9 @@
-package BackEnd;
+package BackEnd.Amenities;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Dinning extends Amenity{
+public class Dinning extends Amenity {
 
     private String dinningType;
     private boolean foodDelivery;

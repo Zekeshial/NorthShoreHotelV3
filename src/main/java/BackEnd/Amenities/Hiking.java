@@ -1,6 +1,6 @@
-package BackEnd;
+package BackEnd.Amenities;
 
-public class Hiking extends Amenity{
+public class Hiking extends Amenity {
 
     private String trailType, trailLocation;
     private  int trailDifficulty;
