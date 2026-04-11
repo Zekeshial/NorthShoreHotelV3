@@ -1,6 +1,6 @@
 package BackEnd.Amenities;
 
-public class Movie extends Amenity {
+public class Movie extends Amenity implements Pricable{
 
     private String movieName;
     private String movieLength;
@@ -47,5 +47,10 @@ public class Movie extends Amenity {
                 "\nmovieName='" + movieName + '\'' +
                 "\nmovieLength=" + movieLength +
                 '}';
+    }
+
+    @Override
+    public double getPrice() {
+        return getAmenityPrice();
     }
 }

@@ -3,7 +3,7 @@ package BackEnd.Amenities;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Skiing extends Amenity implements Rentable {
+public class Skiing extends Amenity implements Rentable, Pricable{
 
     private String location, difficulty;
     private boolean gearStatus;
@@ -70,10 +70,19 @@ public class Skiing extends Amenity implements Rentable {
             System.out.println("You have already rented gear");
         } else {
             gearStatus = true;
+            System.out.println("You have rented the gear.");
+        }
+    }
+
+    @Override
+    public double getPrice() {
+        if (isGearStatus()) {
+            gearStatus = true;
             BigDecimal price = new BigDecimal(getAmenityPrice()+15);
             BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
-            double newPrice = roundedPrice.doubleValue();
-            setAmenityPrice(newPrice);
+            return roundedPrice.doubleValue();
+        } else {
+            return getAmenityPrice();
         }
     }
 }

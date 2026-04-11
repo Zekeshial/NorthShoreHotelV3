@@ -1,6 +1,6 @@
 package BackEnd.Amenities;
 
-public class Hiking extends Amenity {
+public class Hiking extends Amenity implements Pricable{
 
     private String trailType, trailLocation;
     private  int trailDifficulty;
@@ -59,5 +59,10 @@ public class Hiking extends Amenity {
                 "\ntrailLocation='" + trailLocation + '\'' +
                 "\ntrailDifficulty=" + trailDifficulty +
                 '}';
+    }
+
+    @Override
+    public double getPrice() {
+        return getAmenityPrice();
     }
 }

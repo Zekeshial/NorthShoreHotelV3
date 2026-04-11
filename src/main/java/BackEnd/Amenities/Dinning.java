@@ -3,7 +3,7 @@ package BackEnd.Amenities;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Dinning extends Amenity {
+public class Dinning extends Amenity implements Pricable {
 
     private String dinningType;
     private boolean foodDelivery;
@@ -65,5 +65,17 @@ public class Dinning extends Amenity {
                 "\ndinningType='" + dinningType + '\'' +
                 "\nfoodDelivery=" + foodDelivery +
                 '}';
+    }
+
+    @Override
+    public double getPrice() {
+        if (isFoodDelivery()) {
+            BigDecimal price = new BigDecimal(getAmenityPrice()+10);
+            BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
+            double newPrice = roundedPrice.doubleValue();
+            return newPrice;
+        } else {
+            return getAmenityPrice();
+        }
     }
 }

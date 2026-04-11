@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 
-public class Kayaking extends Amenity implements Rentable {
+public class Kayaking extends Amenity implements Rentable, Pricable{
 
     private String location, difficulty;
     private boolean gearStatus;
@@ -76,14 +76,21 @@ public class Kayaking extends Amenity implements Rentable {
     public void rentGear() {
 
         if (gearStatus) {
-            System.out.println("You have already rented gear");
+            System.out.println("You have already rented gear.");
         } else {
             gearStatus = true;
-            BigDecimal price = new BigDecimal(getAmenityPrice()+10);
-            BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
-            double newPrice = roundedPrice.doubleValue();
-            setAmenityPrice(newPrice);
+            System.out.println("You have rented the gear.");
         }
     }
 
+    @Override
+    public double getPrice() {
+        if (isGearStatus()) {
+            BigDecimal price = new BigDecimal(getAmenityPrice()+10);
+            BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
+            return roundedPrice.doubleValue();
+        } else {
+            return getAmenityPrice();
+        }
+    }
 }
