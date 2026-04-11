@@ -40,12 +40,12 @@ public class Movie extends Amenity {
     @Override
     public String toString() {
         return "Movie{" +
-                "amenityName='" + getAmenityName() + '\'' +
-                ", amenityAvailability=" + isAmenityAvailability() +
-                ", amenityPrice=" + getAmenityPrice() +
-                ", amenityDescription='" + getAmenityDescription() + '\'' +
-                ", movieName='" + movieName + '\'' +
-                ", movieLength=" + movieLength +
+                "\namenityName='" + getAmenityName() + '\'' +
+                "\namenityAvailability=" + isAmenityAvailability() +
+                "\namenityPrice=" + getAmenityPrice() +
+                "\namenityDescription='" + getAmenityDescription() + '\'' +
+                "\nmovieName='" + movieName + '\'' +
+                "\nmovieLength=" + movieLength +
                 '}';
     }
 }

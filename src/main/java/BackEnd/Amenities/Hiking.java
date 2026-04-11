@@ -51,13 +51,13 @@ public class Hiking extends Amenity {
     @Override
     public String toString() {
         return "Hiking{" +
-                "amenityName='" + getAmenityName() + '\'' +
-                ", amenityAvailability=" + isAmenityAvailability() +
-                ", amenityPrice=" + getAmenityPrice() +
-                ", amenityDescription='" + getAmenityDescription() + '\'' +
-                ", trailType='" + trailType + '\'' +
-                ", trailLocation='" + trailLocation + '\'' +
-                ", trailDifficulty=" + trailDifficulty +
+                "\namenityName='" + getAmenityName() +
+                "\namenityAvailability=" + isAmenityAvailability() +
+                "\namenityPrice=" + getAmenityPrice() +
+                "\namenityDescription='" + getAmenityDescription() + '\'' +
+                "\ntrailType='" + trailType + '\'' +
+                "\ntrailLocation='" + trailLocation + '\'' +
+                "\ntrailDifficulty=" + trailDifficulty +
                 '}';
     }
 }

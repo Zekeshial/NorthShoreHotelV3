@@ -61,13 +61,13 @@ public class Kayaking extends Amenity implements Rentable {
     @Override
     public String toString() {
         return "Kayaking{" +
-                "amenityName='" + getAmenityName() + '\'' +
-                ", amenityAvailability=" + isAmenityAvailability() +
-                ", amenityPrice=" + getAmenityPrice() +
-                ", amenityDescription='" + getAmenityDescription() + '\'' +
-                ", location='" + location + '\'' +
-                ", difficulty='" + difficulty + '\'' +
-                ", gearStatus=" + gearStatus +
+                "\namenityName='" + getAmenityName() +
+                "\namenityAvailability=" + isAmenityAvailability() +
+                "\namenityPrice=" + getAmenityPrice() +
+                "\namenityDescription='" + getAmenityDescription() + '\'' +
+                "\nlocation='" + location + '\'' +
+                "\ndifficulty='" + difficulty + '\'' +
+                "\ngearStatus=" + gearStatus +
                 '}';
     }
 

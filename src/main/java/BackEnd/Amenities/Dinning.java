@@ -58,12 +58,12 @@ public class Dinning extends Amenity {
     @Override
     public String toString() {
         return "Dinning{" +
-                "amenityName='" + getAmenityName() + '\'' +
-                ", amenityAvailability=" + isAmenityAvailability() +
-                ", amenityPrice=" + getAmenityPrice() +
-                ", amenityDescription='" + getAmenityDescription() + '\'' +
-                ", dinningType='" + dinningType + '\'' +
-                ", foodDelivery=" + foodDelivery +
+                "\namenityName='" + getAmenityName() +
+                "\namenityAvailability=" + isAmenityAvailability() +
+                "\namenityPrice=" + getAmenityPrice() +
+                "\namenityDescription='" + getAmenityDescription() + '\'' +
+                "\ndinningType='" + dinningType + '\'' +
+                "\nfoodDelivery=" + foodDelivery +
                 '}';
     }
 }
