@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Random;
 import java.time.LocalDateTime;
 
@@ -64,8 +65,6 @@ public class Example1 extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        Catalog catalog = new Catalog();
-        catalog.populateCatalog();
 
 
 
@@ -97,7 +96,7 @@ public class Example1 extends Application {
                 2);
 
         Kayaking kayakingLakeSuperior = new Kayaking(
-                "Kayaking",
+                "Kayaking Lake Superior",
                 true,
                 49.99,
                 "You get tour guide to show you the best views along the Lake Superior.",
@@ -107,7 +106,7 @@ public class Example1 extends Application {
         );
 
         Kayaking kayakingSaintLouisRiver = new Kayaking(
-                "Kayaking",
+                "Kayaking SaintLouis River",
                 true,
                 49.99,
                 "You get tour guide to show you the best views along the Saint Louis River.",
@@ -116,7 +115,7 @@ public class Example1 extends Application {
                 false
         );
         Skiing skiingSpiritMountain = new Skiing(
-                "Skiing",
+                "Skiing Spirit Mountain",
                 true,
                 49.99,
                 "You go on a skiing on Spirit Mountain.",
@@ -142,6 +141,11 @@ public class Example1 extends Application {
                 "Avengers End Game",
                 "3 hours 1 min"
         );
+
+        //creating a catalog for the list of Amenities
+        ArrayList<Amenity> catalog = new ArrayList<>();
+
+
 
         //creating a viewable list for the panel
         ListView<Amenity> listViewLeft = new ListView<>();
@@ -211,14 +215,17 @@ public class Example1 extends Application {
         //title pane information
         Label programInformation = new Label("Welcome to the North Shore Hotel Reservation System");
         Label nameFieldTip = new Label("Enter your name in the textbox below.");
-        Label dayFieldTip = new Label("Enter the day you wish to start your below (Number between 1-31, changes based on month)");
+        Label dayFieldTip = new Label("Enter the number of Days you wish to stay");
         Label amenityListInformation = new Label("This is a list of amenities you can purchase.");
-        Label cartListInformation = new Label("This is your shopping cart or list of items you wish to purcahse.");
+        Label cartListInformation = new Label("This is your shopping cart or list of items you wish to purchase.");
 
 
         //Text field pane information
         TextField userNameField = new TextField();
         userNameField.setPromptText("Enter your Name Here");
+
+        TextField shoppingCartAddField = new TextField();
+        shoppingCartAddField.setPromptText("Enter the Amenity's Name Here");
 
         NumericTextField userDayField = new NumericTextField();
         userDayField.setPromptText("Enter Day Here");
@@ -227,23 +234,25 @@ public class Example1 extends Application {
         userMonthField.setPromptText("Enter Month Here");
 
 
-        //Button submit info
-        Button buttonOne = new Button("Submit");
-        buttonOne.setOnAction(event -> {
-            //Clearing the Canvas
-            graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            graphicsContext.setFill(Color.BEIGE);
-            graphicsContext.fillRect(0, 0, canvas.getWidth(), TextSize);
 
-            //Creating the Information unto the Canvas
-            String clientsName = userNameField.getText();
-            graphicsContext.setFont(new Font("Times New Romans", TextSize));
-            graphicsContext.setFill(Color.BLACK);
-            graphicsContext.fillText(clientsName + " You have been assigned to room num: " + randomNum(0, 100) +
-                            "\nYour stay starts: " + LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES) + " Military Time" +
-                            "\n And ends on: " + dateTime(userMonthField.getIntValue(), userDayField.getIntValue()) + " Military Time"
-                    , 0, TextSize);
-        });
+
+//        //Button submit info
+//        Button buttonOne = new Button("Submit");
+//        buttonOne.setOnAction(event -> {
+//            //Clearing the Canvas
+//            graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//            graphicsContext.setFill(Color.BEIGE);
+//            graphicsContext.fillRect(0, 0, canvas.getWidth(), TextSize);
+//
+//            //Creating the Information unto the Canvas
+//            String clientsName = userNameField.getText();
+//            graphicsContext.setFont(new Font("Times New Romans", TextSize));
+//            graphicsContext.setFill(Color.BLACK);
+//            graphicsContext.fillText(clientsName + " You have been assigned to room num: " + randomNum(0, 100) +
+//                            "\nYour stay starts: " + LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES) + " Military Time" +
+//                            "\n And ends on: " + dateTime(userMonthField.getIntValue(), userDayField.getIntValue()) + " Military Time"
+//                    , 0, TextSize);
+//        });
 
         //Clear button info
         Button buttonTwo = new Button("Clear");
@@ -263,9 +272,15 @@ public class Example1 extends Application {
         buttonThree.setOnAction(event ->{stage.close();
         });
 
+//        //Add Item to Cart Button Info
+//        Button addToCartButton = new Button("Add");
+//        addToCartButton.setOnAction(event -> {
+//            if (shoppingCartAddField.equals())
+//        });
+
 
         //adding objects to Hbox
-        hBox.getChildren().add(buttonOne);
+//        hBox.getChildren().add(buttonOne);
         hBox.getChildren().add(buttonTwo);
         hBox.getChildren().add(buttonThree);
 
