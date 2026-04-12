@@ -8,8 +8,8 @@ public class ExecutiveSuite extends Room {
     private boolean suiteHottubStatus;
     private int suiteNumBeds;
 
-    public ExecutiveSuite(String roomName, int roomNum, double roomPrice, int roomDuration, boolean roomReservationStatus, boolean roomCleaningStatus, boolean suiteHottubStatus, int suiteNumBeds) {
-        super(roomName, roomNum, roomPrice, roomDuration, roomReservationStatus, roomCleaningStatus);
+    public ExecutiveSuite(String roomName, int roomNum, double roomPrice, boolean roomReservationStatus, boolean roomCleaningStatus, boolean suiteHottubStatus, int suiteNumBeds) {
+        super(roomName, roomNum, roomPrice, roomReservationStatus, roomCleaningStatus);
         this.suiteHottubStatus = suiteHottubStatus;
         this.suiteNumBeds = suiteNumBeds;
     }
@@ -45,7 +45,6 @@ public class ExecutiveSuite extends Room {
         return "ExecutiveSuite{" +
                 "suiteName='" + getRoomName() + '\'' +
                 ", suiteNum=" + getRoomNum() +
-                ", suiteDuration=" + getRoomDuration() +
                 ", suitePrice=" + getPrice() +
                 ", suiteReservationStatus=" + isRoomReservationStatus() +
                 ", suiteCleaningStatus=" + isRoomCleaningStatus() +

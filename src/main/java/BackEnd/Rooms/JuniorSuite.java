@@ -7,8 +7,8 @@ public class JuniorSuite extends Room {
 
     private int suiteNumBeds;
 
-    public JuniorSuite(String roomName, int roomNum, double roomPrice, int roomDuration, boolean roomReservationStatus, boolean roomCleaningStatus, int suiteNumBeds) {
-        super(roomName, roomNum, roomPrice, roomDuration, roomReservationStatus, roomCleaningStatus);
+    public JuniorSuite(String roomName, int roomNum, double roomPrice, boolean roomReservationStatus, boolean roomCleaningStatus, int suiteNumBeds) {
+        super(roomName, roomNum, roomPrice, roomReservationStatus, roomCleaningStatus);
         this.suiteNumBeds = suiteNumBeds;
     }
 
@@ -33,7 +33,6 @@ public class JuniorSuite extends Room {
         return "JuniorSuite{" +
                 "suiteName='" + getRoomName() + '\'' +
                 ", suiteNum=" + getRoomNum() +
-                ", suiteDuration=" + getRoomDuration() +
                 ", suitePrice=" + getPrice() +
                 ", suiteReservationStatus=" + isRoomReservationStatus() +
                 ", suiteCleaningStatus=" + isRoomCleaningStatus() +

@@ -4,6 +4,8 @@ package FrontEnd;
 
 import BackEnd.Amenities.*;
 import BackEnd.Interfaces.Pricable;
+import BackEnd.Rooms.JuniorSuite;
+import BackEnd.Rooms.Room;
 import BackEnd.ShoppingCart;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -24,6 +26,7 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Random;
 import java.time.LocalDateTime;
 
@@ -140,7 +143,19 @@ public class Example1 extends Application {
                 "3 hours 1 min"
         );
 
+        //creating a list of all Rooms
+        ArrayList<Room> listOfRooms = new ArrayList<>();
+
         //Creating the Room's that Exist in the Hotel
+        for(int i = 0; i < 30; i++ ) {
+            listOfRooms.add(new JuniorSuite(
+                    "Junior Suite",
+                    i,
+                    149.99,
+
+            ))
+
+        }
 
 
 

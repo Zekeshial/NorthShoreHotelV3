@@ -6,8 +6,8 @@ import java.math.RoundingMode;
 public class ConferenceRoom extends Room {
     private boolean projectorStatus;
 
-    public ConferenceRoom(String roomName, int roomNum, double roomPrice, int roomDuration, boolean roomReservationStatus, boolean roomCleaningStatus, boolean projectorStatus) {
-        super(roomName, roomNum, roomPrice, roomDuration, roomReservationStatus, roomCleaningStatus);
+    public ConferenceRoom(String roomName, int roomNum, double roomPrice, boolean roomReservationStatus, boolean roomCleaningStatus, boolean projectorStatus) {
+        super(roomName, roomNum, roomPrice, roomReservationStatus, roomCleaningStatus);
         this.projectorStatus = projectorStatus;
     }
 
@@ -33,7 +33,6 @@ public class ConferenceRoom extends Room {
         return "ConferenceRoom{" +
                 "roomName='" + getRoomName() + '\'' +
                 ", roomNum=" + getRoomNum() +
-                ", roomDuration=" + getRoomDuration() +
                 ", roomPrice=" + getPrice() +
                 ", roomReservationStatus=" + isRoomReservationStatus() +
                 ", roomCleaningStatus=" + isRoomCleaningStatus() +

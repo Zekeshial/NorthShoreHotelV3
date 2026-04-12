@@ -10,11 +10,10 @@ public abstract class Room implements Pricable {
     private boolean roomReservationStatus;
     private boolean roomCleaningStatus;
 
-    public Room(String roomName, int roomNum, double roomPrice, int roomDuration, boolean roomReservationStatus, boolean roomCleaningStatus) {
+    public Room(String roomName, int roomNum, double roomPrice, boolean roomReservationStatus, boolean roomCleaningStatus) {
         this.roomName = roomName;
         this.roomNum = roomNum;
         this.roomPrice = roomPrice;
-        this.roomDuration = roomDuration;
         this.roomReservationStatus = roomReservationStatus;
         this.roomCleaningStatus = roomCleaningStatus;
     }
@@ -23,7 +22,6 @@ public abstract class Room implements Pricable {
         this.roomName = "default";
         this.roomNum = 0;
         this.roomPrice = 0;
-        this.roomDuration = 0;
         this.roomReservationStatus = false;
         this.roomCleaningStatus = false;
     }
@@ -52,14 +50,6 @@ public abstract class Room implements Pricable {
         this.roomPrice = roomPrice;
     }
 
-    public int getRoomDuration() {
-        return roomDuration;
-    }
-
-    public void setRoomDuration(int roomDuration) {
-        this.roomDuration = roomDuration;
-    }
-
     public boolean isRoomReservationStatus() {
         return roomReservationStatus;
     }
@@ -76,9 +66,6 @@ public abstract class Room implements Pricable {
         this.roomCleaningStatus = roomCleaningStatus;
     }
 
-    public double getTotalCostOfStay() {
-        return roomPrice * roomDuration;
-    }
 
     @Override
     public abstract String toString();
