@@ -149,8 +149,8 @@ public class Example1 extends Application {
         ObservableList<Amenity> observableCatalog = listViewLeft.getItems();
 
         //Creating an observable shopping cart
-        ListView<Amenity> listViewRight = new ListView<>();
-        ObservableList<Amenity> observableCart = listViewRight.getItems();
+        ListView<Pricable> listViewRight = new ListView<>();
+        ObservableList<Pricable> observableCart = listViewRight.getItems();
 
 
         //adding items to the viewable list
@@ -253,7 +253,12 @@ public class Example1 extends Application {
         Button addToCartButton = new Button("Add Selected Item to Cart");
         addToCartButton.setOnAction(event -> {
             Amenity amenity = listViewLeft.getSelectionModel().getSelectedItem();
-            observableCart.add(amenity);
+            if (amenity instanceof Pricable) {
+                observableCart.add((Pricable) amenity);
+            } else {
+                System.out.println("Not a Pricable");
+            }
+
         });
 
         //Remove Items from cart Button
@@ -268,15 +273,10 @@ public class Example1 extends Application {
         Button getCost = new Button ("Get Total");
         getCost.setOnAction(actionEvent -> {
             ShoppingCart cart = new ShoppingCart();
-            for (Amenity amenity: observableCart){
-                if (amenity instanceof Pricable) {
-                    cart.addItemToCart((Pricable) amenity);
-                }
+            for (Pricable itemsInCart: observableCart){
+                cart.addItemToCart(itemsInCart);
             }
-            for (int i = 0; i < observableCart.size(); i++) {
-                cart.addItemToCart();
-            }
-            listViewRight.getItems().get()
+            System.out.println(cart.getTotalCostOfItems());
         });
 
 
@@ -289,6 +289,7 @@ public class Example1 extends Application {
 //      hBox.getChildren().add(buttonOne);
         hBoxCenterButtons.getChildren().add(buttonTwo);
         hBoxCenterButtons.getChildren().add(buttonThree);
+        hBoxCenterButtons.getChildren().add(getCost);
 
 
 
@@ -324,11 +325,10 @@ public class Example1 extends Application {
 
         //Adding objects to the BorderPane
 //        borderPane.setTop(vBoxCenter);
-        borderPane.setBottom(canvas);
-        borderPane.setCenter(vBoxCenter);
         borderPane.setLeft(vBoxCatalog);
+        borderPane.setCenter(vBoxCenter);
         borderPane.setRight(vBoxCart);
-
+        borderPane.setBottom(canvas);
 
 
         //Adding objects to the group

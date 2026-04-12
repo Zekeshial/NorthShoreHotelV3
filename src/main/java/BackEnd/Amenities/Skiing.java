@@ -1,6 +1,7 @@
 package BackEnd.Amenities;
 
 import BackEnd.Interfaces.Pricable;
+import BackEnd.Interfaces.Rentable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
