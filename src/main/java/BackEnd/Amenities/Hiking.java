@@ -1,6 +1,8 @@
 package BackEnd.Amenities;
 
-public class Hiking extends Amenity implements Pricable{
+import BackEnd.Interfaces.Pricable;
+
+public class Hiking extends Amenity implements Pricable {
 
     private String trailType, trailLocation;
     private  int trailDifficulty;

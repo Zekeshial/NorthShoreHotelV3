@@ -1,6 +1,8 @@
 package BackEnd.Rooms;
 
-public abstract class Room {
+import BackEnd.Interfaces.Pricable;
+
+public abstract class Room implements Pricable {
 
     private String roomName;
     private int roomNum, roomDuration;

@@ -1,6 +1,8 @@
 package BackEnd.Amenities;
 
-public class Movie extends Amenity implements Pricable{
+import BackEnd.Interfaces.Pricable;
+
+public class Movie extends Amenity implements Pricable {
 
     private String movieName;
     private String movieLength;

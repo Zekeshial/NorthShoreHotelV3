@@ -1,5 +1,8 @@
 package BackEnd.Rooms;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class PenthouseSuite extends Room {
 
     private boolean kitchenStatus, suiteHottubStatus;
@@ -54,12 +57,33 @@ public class PenthouseSuite extends Room {
                 "suiteName='" + getRoomName() + '\'' +
                 ", suiteNum=" + getRoomNum() +
                 ", suiteDuration=" + getRoomDuration() +
-                ", suitePrice=" + getRoomPrice() +
+                ", suitePrice=" + getPrice() +
                 ", suiteReservationStatus=" + isRoomReservationStatus() +
                 ", suiteCleaningStatus=" + isRoomCleaningStatus() +
                 ", kitchenStatus=" + kitchenStatus +
                 ", suiteHottubStatus=" + suiteHottubStatus +
                 ", suiteNumBeds=" + suiteNumBeds +
                 '}';
+    }
+
+    @Override
+    public double getPrice() {
+        if (suiteHottubStatus && kitchenStatus) {
+            BigDecimal price = new BigDecimal(getRoomPrice() + 10 + 30 + suiteNumBeds * 10);
+            BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
+            return roundedPrice.doubleValue();
+        } else if (suiteHottubStatus && !kitchenStatus) {
+            BigDecimal price = new BigDecimal(getRoomPrice() + 10 + suiteNumBeds * 10);
+            BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
+            return roundedPrice.doubleValue();
+        } else if (!suiteHottubStatus && kitchenStatus) {
+            BigDecimal price = new BigDecimal(getRoomPrice() + 30 + suiteNumBeds * 10);
+            BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
+            return roundedPrice.doubleValue();
+        } else {
+            BigDecimal price = new BigDecimal(getRoomPrice() + suiteNumBeds*10);
+            BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
+            return roundedPrice.doubleValue();
+        }
     }
 }

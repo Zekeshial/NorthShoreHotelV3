@@ -1,5 +1,8 @@
 package BackEnd.Rooms;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class ConferenceRoom extends Room {
     private boolean projectorStatus;
 
@@ -31,11 +34,21 @@ public class ConferenceRoom extends Room {
                 "roomName='" + getRoomName() + '\'' +
                 ", roomNum=" + getRoomNum() +
                 ", roomDuration=" + getRoomDuration() +
-                ", roomPrice=" + getRoomPrice() +
+                ", roomPrice=" + getPrice() +
                 ", roomReservationStatus=" + isRoomReservationStatus() +
                 ", roomCleaningStatus=" + isRoomCleaningStatus() +
                 ", projectorStatus=" + projectorStatus +
                 '}';
     }
 
+    @Override
+    public double getPrice() {
+        if (projectorStatus) {
+            BigDecimal price = new BigDecimal(getRoomPrice()+10);
+            BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
+            return roundedPrice.doubleValue();
+        } else {
+            return getRoomPrice();
+        }
+    }
 }

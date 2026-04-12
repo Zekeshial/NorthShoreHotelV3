@@ -1,10 +1,12 @@
 package BackEnd.Amenities;
 
+import BackEnd.Interfaces.Pricable;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 
-public class Kayaking extends Amenity implements Rentable, Pricable{
+public class Kayaking extends Amenity implements Rentable, Pricable {
 
     private String location, difficulty;
     private boolean gearStatus;

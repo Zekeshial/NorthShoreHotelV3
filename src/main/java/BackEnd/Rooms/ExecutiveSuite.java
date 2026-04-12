@@ -1,5 +1,8 @@
 package BackEnd.Rooms;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class ExecutiveSuite extends Room {
 
     private boolean suiteHottubStatus;
@@ -43,11 +46,24 @@ public class ExecutiveSuite extends Room {
                 "suiteName='" + getRoomName() + '\'' +
                 ", suiteNum=" + getRoomNum() +
                 ", suiteDuration=" + getRoomDuration() +
-                ", suitePrice=" + getRoomPrice() +
+                ", suitePrice=" + getPrice() +
                 ", suiteReservationStatus=" + isRoomReservationStatus() +
                 ", suiteCleaningStatus=" + isRoomCleaningStatus() +
                 ", suiteHottubStatus=" + suiteHottubStatus +
                 ", suiteNumBeds=" + suiteNumBeds +
                 '}';
+    }
+
+    @Override
+    public double getPrice() {
+        if (suiteHottubStatus) {
+            BigDecimal price = new BigDecimal(getRoomPrice() + 10 + suiteNumBeds*10);
+            BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
+            return roundedPrice.doubleValue();
+        } else {
+            BigDecimal price = new BigDecimal(getRoomPrice() + suiteNumBeds*10);
+            BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
+            return roundedPrice.doubleValue();
+        }
     }
 }

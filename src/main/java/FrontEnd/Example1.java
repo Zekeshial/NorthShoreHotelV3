@@ -3,7 +3,8 @@
 package FrontEnd;
 
 import BackEnd.Amenities.*;
-import BackEnd.Catalog;
+import BackEnd.Interfaces.Pricable;
+import BackEnd.ShoppingCart;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -17,15 +18,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Random;
 import java.time.LocalDateTime;
 
@@ -144,9 +142,6 @@ public class Example1 extends Application {
 
         //Creating the Room's that Exist in the Hotel
 
-        //creating a catalog for the list of Amenities
-        ArrayList<Amenity> catalog = new ArrayList<>();
-
 
 
         //creating a viewable list for the panel
@@ -155,7 +150,7 @@ public class Example1 extends Application {
 
         //Creating an observable shopping cart
         ListView<Amenity> listViewRight = new ListView<>();
-        ObservableList<Amenity> cart = listViewRight.getItems();
+        ObservableList<Amenity> observableCart = listViewRight.getItems();
 
 
         //adding items to the viewable list
@@ -258,14 +253,30 @@ public class Example1 extends Application {
         Button addToCartButton = new Button("Add Selected Item to Cart");
         addToCartButton.setOnAction(event -> {
             Amenity amenity = listViewLeft.getSelectionModel().getSelectedItem();
-            cart.add(amenity);
+            observableCart.add(amenity);
         });
 
         //Remove Items from cart Button
         Button removeItemFromCart = new Button("Remove Selected Item");
         removeItemFromCart.setOnAction(actionEvent -> {
             int amenity = listViewRight.getSelectionModel().getSelectedIndex();
-            cart.remove(amenity);
+            observableCart.remove(amenity);
+        });
+
+
+        //Get total cost of Items in the viewable shopping cart button
+        Button getCost = new Button ("Get Total");
+        getCost.setOnAction(actionEvent -> {
+            ShoppingCart cart = new ShoppingCart();
+            for (Amenity amenity: observableCart){
+                if (amenity instanceof Pricable) {
+                    cart.addItemToCart((Pricable) amenity);
+                }
+            }
+            for (int i = 0; i < observableCart.size(); i++) {
+                cart.addItemToCart();
+            }
+            listViewRight.getItems().get()
         });
 
 
