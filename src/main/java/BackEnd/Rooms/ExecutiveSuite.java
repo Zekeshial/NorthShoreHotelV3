@@ -57,11 +57,11 @@ public class ExecutiveSuite extends Room {
     @Override
     public double getPrice() {
         if (suiteHottubStatus) {
-            BigDecimal price = new BigDecimal(getRoomPrice() + 10 + suiteNumBeds*10);
+            BigDecimal price = new BigDecimal(getRoomPrice() + 10 + (double) (suiteNumBeds * 10) /10);
             BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
             return roundedPrice.doubleValue();
         } else {
-            BigDecimal price = new BigDecimal(getRoomPrice() + suiteNumBeds*10);
+            BigDecimal price = new BigDecimal(getRoomPrice() + (double) (suiteNumBeds * 10) /10);
             BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
             return roundedPrice.doubleValue();
         }

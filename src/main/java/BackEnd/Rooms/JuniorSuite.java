@@ -43,7 +43,7 @@ public class JuniorSuite extends Room {
 
     @Override
     public double getPrice() {
-            BigDecimal price = new BigDecimal(getRoomPrice() + suiteNumBeds*10);
+            BigDecimal price = new BigDecimal(getRoomPrice() + (double) (suiteNumBeds * 10) /10);
             BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
             return roundedPrice.doubleValue();
     }
