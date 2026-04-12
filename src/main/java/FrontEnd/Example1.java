@@ -142,6 +142,8 @@ public class Example1 extends Application {
                 "3 hours 1 min"
         );
 
+        //Creating the Room's that Exist in the Hotel
+
         //creating a catalog for the list of Amenities
         ArrayList<Amenity> catalog = new ArrayList<>();
 
@@ -149,37 +151,26 @@ public class Example1 extends Application {
 
         //creating a viewable list for the panel
         ListView<Amenity> listViewLeft = new ListView<>();
-        ObservableList<Amenity> items = listViewLeft.getItems();
+        ObservableList<Amenity> observableCatalog = listViewLeft.getItems();
 
-        //adding items to the viewable list
-        items.add(dinner);
-        items.add(hikingLakeSuperior);
-        items.add(hikingGrandPortageTrail);
-        items.add(kayakingLakeSuperior);
-        items.add(kayakingSaintLouisRiver);
-        items.add(skiingSpiritMountain);
-        items.add(yourName);
-        items.add(avengersEndGame);
-
-
-
-
-        listViewLeft.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("Item Selected: " + newValue);
-            int selectedIndex = listViewLeft.getSelectionModel().getSelectedIndex();
-            System.out.println("Index of the Item Selected: " + selectedIndex);
-        });
-
+        //Creating an observable shopping cart
         ListView<Amenity> listViewRight = new ListView<>();
-
         ObservableList<Amenity> cart = listViewRight.getItems();
 
 
-        listViewRight.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("Item Selected: " + newValue);
-            int selectedIndex = listViewRight.getSelectionModel().getSelectedIndex();
-            System.out.println("Index of the Item Selected: " + selectedIndex);
-        });
+        //adding items to the viewable list
+        observableCatalog.add(dinner);
+        observableCatalog.add(hikingLakeSuperior);
+        observableCatalog.add(hikingGrandPortageTrail);
+        observableCatalog.add(kayakingLakeSuperior);
+        observableCatalog.add(kayakingSaintLouisRiver);
+        observableCatalog.add(skiingSpiritMountain);
+        observableCatalog.add(yourName);
+        observableCatalog.add(avengersEndGame);
+
+
+
+
 
 
 
@@ -203,13 +194,7 @@ public class Example1 extends Application {
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
 
-        //Creating pane of vbox
-        VBox vBoxCenter = new VBox(10);
-        VBox vBoxCatalog = new VBox(10);
-        VBox vBoxCart = new VBox(10);
 
-        //Creating pane of Hbox
-        HBox hBox = new HBox(25);
 
 
         //title pane information
@@ -230,8 +215,6 @@ public class Example1 extends Application {
         NumericTextField userDayField = new NumericTextField();
         userDayField.setPromptText("Enter Day Here");
 
-        NumericTextField userMonthField = new NumericTextField();
-        userMonthField.setPromptText("Enter Month Here");
 
 
 
@@ -259,7 +242,6 @@ public class Example1 extends Application {
         buttonTwo.setOnAction(event -> {
             //Clearing the Name Field
             userNameField.clear();
-            userMonthField.clear();
             userDayField.clear();
             //Clearing the Canvas
             graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -272,38 +254,67 @@ public class Example1 extends Application {
         buttonThree.setOnAction(event ->{stage.close();
         });
 
-//        //Add Item to Cart Button Info
-//        Button addToCartButton = new Button("Add");
-//        addToCartButton.setOnAction(event -> {
-//            if (shoppingCartAddField.equals())
-//        });
+        //Add Item to Cart Button Info
+        Button addToCartButton = new Button("Add Selected Item to Cart");
+        addToCartButton.setOnAction(event -> {
+            Amenity amenity = listViewLeft.getSelectionModel().getSelectedItem();
+            cart.add(amenity);
+        });
+
+        //Remove Items from cart Button
+        Button removeItemFromCart = new Button("Remove Selected Item");
+        removeItemFromCart.setOnAction(actionEvent -> {
+            int amenity = listViewRight.getSelectionModel().getSelectedIndex();
+            cart.remove(amenity);
+        });
 
 
-        //adding objects to Hbox
-//        hBox.getChildren().add(buttonOne);
-        hBox.getChildren().add(buttonTwo);
-        hBox.getChildren().add(buttonThree);
+
+
+
+
+        //adding objects to hBox center buttons
+        HBox hBoxCenterButtons = new HBox(25);
+//      hBox.getChildren().add(buttonOne);
+        hBoxCenterButtons.getChildren().add(buttonTwo);
+        hBoxCenterButtons.getChildren().add(buttonThree);
+
 
 
         //adding objects to vbox
+        VBox vBoxCenter = new VBox(10);
         vBoxCenter.getChildren().add(programInformation);
         vBoxCenter.getChildren().add(nameFieldTip);
         vBoxCenter.getChildren().add(userNameField);
         vBoxCenter.getChildren().add(dayFieldTip);
         vBoxCenter.getChildren().add(userDayField);
+        vBoxCenter.getChildren().add(hBoxCenterButtons);
+
+        //adding objects to hBox that is below the catalog
+        HBox hBoxCartButtons = new HBox(25);
+        hBoxCartButtons.getChildren().add(addToCartButton);
 
         //adding object to vBox catalog
+        VBox vBoxCatalog = new VBox(10);
         vBoxCatalog.getChildren().add(amenityListInformation);
         vBoxCatalog.getChildren().add(listViewLeft);
+        vBoxCatalog.getChildren().add(hBoxCartButtons);
+
+        //adding objects to an hBox that holds the buttons below the shopping cart
+        HBox hBoxShoppingCartButtons = new HBox(25);
+        hBoxShoppingCartButtons.getChildren().add(removeItemFromCart);
 
         //adding object to vbox cart
+        VBox vBoxCart = new VBox(10);
         vBoxCart.getChildren().add(cartListInformation);
         vBoxCart.getChildren().add(listViewRight);
+        vBoxCart.getChildren().add(hBoxShoppingCartButtons);
+
 
         //Adding objects to the BorderPane
-        borderPane.setTop(vBoxCenter);
+//        borderPane.setTop(vBoxCenter);
         borderPane.setBottom(canvas);
-        borderPane.setCenter(hBox);
+        borderPane.setCenter(vBoxCenter);
         borderPane.setLeft(vBoxCatalog);
         borderPane.setRight(vBoxCart);
 
@@ -325,7 +336,7 @@ public class Example1 extends Application {
 
         //setting stage
         stage.setScene(scene);
-        stage.setTitle("Bedroom Assigner");
+        stage.setTitle("North Shore Hotel Reservation App");
 
         //Showing stage
         stage.show();
