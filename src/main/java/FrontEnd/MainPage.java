@@ -29,6 +29,9 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 public class MainPage extends Application {
@@ -270,7 +273,8 @@ public class MainPage extends Application {
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         //Creating a Vbox to Hold the Receipt
-        VBox vBoxReceipt = new VBox();
+        VBox vBoxReceipt = new VBox(0);
+        VBox vBoxProgramOutputInfo = new VBox(0);
 
 
 
@@ -287,9 +291,7 @@ public class MainPage extends Application {
         Label emailFieldTip = new Label("Enter your Email in the textbox below.");
         Label phoneNumFieldTip = new Label("Enter your phone number in the textbox below.");
 
-        Label programOutputInformationTextField = new Label();
-        programOutputInformationTextField.setWrapText(true);
-        programOutputInformationTextField.setPrefWidth(600);
+
 
 
         //Text field pane information
@@ -305,38 +307,26 @@ public class MainPage extends Application {
         NumericTextField userDayField = new NumericTextField();
         userDayField.setPromptText("Enter Days Here");
 
+        Text programOutputInformationTextField = new Text();
+        programOutputInformationTextField.setWrappingWidth(300);
 
 
-
-
-//        //Button submit info
-//        Button buttonOne = new Button("Submit");
-//        buttonOne.setOnAction(event -> {
-//            //Clearing the Canvas
-//            graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-//            graphicsContext.setFill(Color.BEIGE);
-//            graphicsContext.fillRect(0, 0, canvas.getWidth(), TextSize);
-//
-//            //Creating the Information unto the Canvas
-//            String clientsName = userNameField.getText();
-//            graphicsContext.setFont(new Font("Times New Romans", TextSize));
-//            graphicsContext.setFill(Color.BLACK);
-//            graphicsContext.fillText(clientsName + " You have been assigned to room num: " + randomNum(0, 100) +
-//                            "\nYour stay starts: " + LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES) + " Military Time" +
-//                            "\n And ends on: " + dateTime(userMonthField.getIntValue(), userDayField.getIntValue()) + " Military Time"
-//                    , 0, TextSize);
-//        });
 
         //Clear button info
         Button clearCanvas = new Button("Clear");
         clearCanvas.setOnAction(event -> {
-            //Clearing the Name Field
+            //Clearing Fields
             userNameField.clear();
             userDayField.clear();
+            userEmailField.clear();
+            userPhoneNumField.clear();
             //Clearing the Canvas
             graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             graphicsContext.setFill(Color.BEIGE);
             graphicsContext.fillRect(0, 0, canvas.getWidth(), TextSize);
+            //Clearing vBoxOutPuts
+            vBoxProgramOutputInfo.getChildren().clear();
+            vBoxReceipt.getChildren().clear();
         });
 
         //Close Application button info
@@ -351,7 +341,8 @@ public class MainPage extends Application {
             if (amenity instanceof Pricable) {
                 observableCart.add((Pricable) amenity);
             } else {
-                System.out.println("Not a Pricable");
+                vBoxProgramOutputInfo.getChildren().clear();
+                programOutputInformationTextField.setText("The item selected is not an Pricable Item.");
             }
 
         });
@@ -371,8 +362,19 @@ public class MainPage extends Application {
             if (selectedRoom instanceof Pricable && observableRoomStatus) {
                 observableCart.add((Pricable) selectedRoom);
             } else {
+                vBoxProgramOutputInfo.getChildren().clear();
                 programOutputInformationTextField.setText("You have already selected a room to stay in. " +
                         "To select a different one first remove the selected room and then add a new room.");
+                //Code needs to be looked at
+
+//                vBoxProgramOutputInfo.getChildren().add(programOutputInformationTextField);
+//                try (ScheduledExecutorService service = Executors.newScheduledThreadPool(1)) {
+//                    service.schedule(() -> {
+//                        vBoxProgramOutputInfo.getChildren().clear();
+//                        }, 5, TimeUnit.SECONDS);
+//                } catch (Exception e) {
+//                    System.out.println(e.getMessage());
+//                }
             }
         });
 
@@ -423,7 +425,7 @@ public class MainPage extends Application {
             vBoxReceipt.getChildren().clear();
 
             Text receiptStartingInfo = new Text();
-            receiptStartingInfo.setWrappingWidth(600);
+            receiptStartingInfo.setWrappingWidth(300);
 
             //Creating the starting info
             receiptStartingInfo.setText("Receipt sent to: " + reservation.getCustomer().getClientEmail() +
@@ -438,7 +440,7 @@ public class MainPage extends Application {
             for (Pricable itemsInCart: observableCart) {
                 if (itemsInCart instanceof Amenity) {
                     Text amenityInReceipt = new Text();
-                    amenityInReceipt.setWrappingWidth(600);
+                    amenityInReceipt.setWrappingWidth(300);
                     amenityInReceipt.setText("\nAmenity Name: " + ((Amenity) itemsInCart).getAmenityName() + ", Price: " + itemsInCart.getPrice());
                     vBoxReceipt.getChildren().add(amenityInReceipt);
                 }
@@ -446,7 +448,7 @@ public class MainPage extends Application {
 
             //creating the total/ending portion of the receipt
             Text receiptEndingInfo = new Text();
-            receiptEndingInfo.setWrappingWidth(600);
+            receiptEndingInfo.setWrappingWidth(300);
             receiptEndingInfo.setText("-----------------------------"
             + "\nTotal Due: " + cart.getTotalCostOfItems());
             vBoxReceipt.getChildren().add(receiptEndingInfo);
@@ -483,7 +485,7 @@ public class MainPage extends Application {
 
         vBoxCenter.getChildren().add(hBoxCenterButtons);
 
-        vBoxCenter.getChildren().add(programOutputInformationTextField);
+        vBoxCenter.getChildren().add(vBoxProgramOutputInfo);
 
         //adding objects to hBox that is below the catalog
         HBox hBoxCartButtons = new HBox(25);
