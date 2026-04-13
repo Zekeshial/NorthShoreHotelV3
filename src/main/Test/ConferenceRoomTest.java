@@ -22,7 +22,7 @@ class ConferenceRoomTest {
 
     void ToString2() {
 
-        ConferenceRoom cr = new ConferenceRoom("room1", 1, 19.99, 18, true, true, true);
+        ConferenceRoom cr = new ConferenceRoom("room1", 1, 19.99, true, true, true);
         String actual = cr.toString();
         String expected = "ConferenceRoom{roomName='room1', roomNum=1, roomDuration=18, roomPrice=19.99, roomReservationStatus=true, roomCleaningStatus=true, projectorStatus=true}";
         assertEquals(expected, actual);

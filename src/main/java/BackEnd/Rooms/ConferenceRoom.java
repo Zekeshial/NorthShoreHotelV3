@@ -31,12 +31,12 @@ public class ConferenceRoom extends Room {
     @Override
     public String toString() {
         return "ConferenceRoom{" +
-                "roomName='" + getRoomName() + '\'' +
-                ", roomNum=" + getRoomNum() +
-                ", roomPrice=" + getPrice() +
-                ", roomReservationStatus=" + isRoomReservationStatus() +
-                ", roomCleaningStatus=" + isRoomCleaningStatus() +
-                ", projectorStatus=" + projectorStatus +
+                "\n roomName='" + getRoomName() + '\'' +
+                "\n roomNum=" + getRoomNum() +
+                "\n roomPrice=" + getPrice() +
+                "\n roomReservationStatus=" + isRoomReservationStatus() +
+                "\n roomCleaningStatus=" + isRoomCleaningStatus() +
+                "\n projectorStatus=" + projectorStatus +
                 '}';
     }
 

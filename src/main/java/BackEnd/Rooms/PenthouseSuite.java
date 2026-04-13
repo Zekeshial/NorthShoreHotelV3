@@ -54,33 +54,33 @@ public class PenthouseSuite extends Room {
     @Override
     public String toString() {
         return "PenthouseSuite{" +
-                "suiteName='" + getRoomName() + '\'' +
-                ", suiteNum=" + getRoomNum() +
-                ", suitePrice=" + getPrice() +
-                ", suiteReservationStatus=" + isRoomReservationStatus() +
-                ", suiteCleaningStatus=" + isRoomCleaningStatus() +
-                ", kitchenStatus=" + kitchenStatus +
-                ", suiteHottubStatus=" + suiteHottubStatus +
-                ", suiteNumBeds=" + suiteNumBeds +
+                "\n suiteType='" + getRoomName() + '\'' +
+                "\n suiteNum=" + getRoomNum() +
+                "\n suitePrice=" + getPrice() +
+                "\n suiteReservationStatus=" + isRoomReservationStatus() +
+                "\n suiteCleaningStatus=" + isRoomCleaningStatus() +
+                "\n kitchenStatus=" + kitchenStatus +
+                "\n suiteHottubStatus=" + suiteHottubStatus +
+                "\n suiteNumBeds=" + suiteNumBeds +
                 '}';
     }
 
     @Override
     public double getPrice() {
         if (suiteHottubStatus && kitchenStatus) {
-            BigDecimal price = new BigDecimal(getRoomPrice() + 10 + 30 + (double) (suiteNumBeds * 10) /10);
+            BigDecimal price = new BigDecimal(getRoomPrice() + 10 + 30 + (suiteNumBeds * 10 - 10));
             BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
             return roundedPrice.doubleValue();
         } else if (suiteHottubStatus && !kitchenStatus) {
-            BigDecimal price = new BigDecimal(getRoomPrice() + 10 + (double) (suiteNumBeds * 10) /10);
+            BigDecimal price = new BigDecimal(getRoomPrice() + 10 + (suiteNumBeds * 10 - 10));
             BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
             return roundedPrice.doubleValue();
         } else if (!suiteHottubStatus && kitchenStatus) {
-            BigDecimal price = new BigDecimal(getRoomPrice() + 30 + (double) (suiteNumBeds * 10) /10);
+            BigDecimal price = new BigDecimal(getRoomPrice() + 30 + (suiteNumBeds * 10 - 10));
             BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
             return roundedPrice.doubleValue();
         } else {
-            BigDecimal price = new BigDecimal(getRoomPrice() + (double) (suiteNumBeds * 10) /10);
+            BigDecimal price = new BigDecimal(getRoomPrice() + (suiteNumBeds * 10 - 10));
             BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
             return roundedPrice.doubleValue();
         }

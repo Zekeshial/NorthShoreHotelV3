@@ -4,8 +4,7 @@ package FrontEnd;
 
 import BackEnd.Amenities.*;
 import BackEnd.Interfaces.Pricable;
-import BackEnd.Rooms.JuniorSuite;
-import BackEnd.Rooms.Room;
+import BackEnd.Rooms.*;
 import BackEnd.ShoppingCart;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -147,19 +146,107 @@ public class Example1 extends Application {
         ArrayList<Room> listOfRooms = new ArrayList<>();
 
         //Creating the Room's that Exist in the Hotel
-        for(int i = 0; i < 30; i++ ) {
+        //Junior Rooms
+        for(int i = 1; i <= 25; i++ ) {
             listOfRooms.add(new JuniorSuite(
                     "Junior Suite",
-                    i,
+                    100 + i,
                     149.99,
-
-            ))
-
+                    false,
+                    false,
+                    (int) Math.ceil((double) i /10)
+            ));
+        }
+        //Executive Rooms
+        for(int i = 1; i <= 10; i++ ) {
+            boolean status = false;
+            if (i % 2 == 0) {
+                status = true;
+            }
+            listOfRooms.add(new ExecutiveSuite(
+                    "Executive Suite",
+                    200 + i,
+                    449.99,
+                    false,
+                    false,
+                    status,
+                    (int) Math.ceil((double) i /5)
+            ));
+        }
+        //Penthouse Rooms
+        listOfRooms.add(new PenthouseSuite(
+                "Penthouse Suite",
+                301,
+                749.99,
+                false,
+                false,
+                true,
+                false,
+                2)
+        );
+        listOfRooms.add(new PenthouseSuite(
+                "Penthouse Suite",
+                302,
+                749.99,
+                false,
+                false,
+                false,
+                true,
+                2)
+        );
+        listOfRooms.add(new PenthouseSuite(
+                "Penthouse Suite",
+                303,
+                749.99,
+                false,
+                false,
+                true,
+                false,
+                3)
+        );
+        listOfRooms.add(new PenthouseSuite(
+                "Penthouse Suite",
+                304,
+                749.99,
+                false,
+                false,
+                false,
+                true,
+                3)
+        );
+        listOfRooms.add(new PenthouseSuite(
+                "Penthouse Suite",
+                305,
+                749.99,
+                false,
+                false,
+                true,
+                true,
+                3)
+        );
+        //Conference Rooms
+        for(int i = 6; i <= 10; i++ ) {
+            boolean status = false;
+            if (i % 2 == 0) {
+                status = true;
+            }
+            listOfRooms.add(new ConferenceRoom(
+                    "Conference Room",
+                    300 + i,
+                    74.99,
+                    false,
+                    false,
+                    status
+            ));
         }
 
 
 
-        //creating a viewable list for the panel
+
+
+
+
+        //creating a viewable list of amenities a customer can buy
         ListView<Amenity> listViewLeft = new ListView<>();
         ObservableList<Amenity> observableCatalog = listViewLeft.getItems();
 
@@ -167,8 +254,12 @@ public class Example1 extends Application {
         ListView<Pricable> listViewRight = new ListView<>();
         ObservableList<Pricable> observableCart = listViewRight.getItems();
 
+        //Creating an observable List of Rooms a customer can select from
+        ListView<Room> listViewRoom = new ListView<>();
+        ObservableList<Room> observableRooms = listViewRoom.getItems();
 
-        //adding items to the viewable list
+
+        //adding items to the  Observable Catalog
         observableCatalog.add(dinner);
         observableCatalog.add(hikingLakeSuperior);
         observableCatalog.add(hikingGrandPortageTrail);
@@ -177,6 +268,9 @@ public class Example1 extends Application {
         observableCatalog.add(skiingSpiritMountain);
         observableCatalog.add(yourName);
         observableCatalog.add(avengersEndGame);
+
+        //adding Items to the Observable List of Rooms
+        observableRooms.addAll(listOfRooms);
 
 
 
@@ -213,17 +307,22 @@ public class Example1 extends Application {
         Label dayFieldTip = new Label("Enter the number of Days you wish to stay");
         Label amenityListInformation = new Label("This is a list of amenities you can purchase.");
         Label cartListInformation = new Label("This is your shopping cart or list of items you wish to purchase.");
+        Label emailFieldTip = new Label("Enter your Email in the textbox below.");
+        Label phoneNumFieldTip = new Label("Enter your phone number in the textbox below.");
 
 
         //Text field pane information
         TextField userNameField = new TextField();
         userNameField.setPromptText("Enter your Name Here");
 
-        TextField shoppingCartAddField = new TextField();
-        shoppingCartAddField.setPromptText("Enter the Amenity's Name Here");
+        TextField userEmailField = new TextField();
+        userEmailField.setPromptText("Enter your Email Here");
+
+        TextField userPhoneNumField = new TextField();
+        userPhoneNumField.setPromptText("Enter your Phone Number Here");
 
         NumericTextField userDayField = new NumericTextField();
-        userDayField.setPromptText("Enter Day Here");
+        userDayField.setPromptText("Enter Days Here");
 
 
 
@@ -248,8 +347,8 @@ public class Example1 extends Application {
 //        });
 
         //Clear button info
-        Button buttonTwo = new Button("Clear");
-        buttonTwo.setOnAction(event -> {
+        Button clearCanvas = new Button("Clear");
+        clearCanvas.setOnAction(event -> {
             //Clearing the Name Field
             userNameField.clear();
             userDayField.clear();
@@ -260,13 +359,13 @@ public class Example1 extends Application {
         });
 
         //Close Application button info
-        Button buttonThree = new Button("Close Application");
-        buttonThree.setOnAction(event ->{stage.close();
+        Button closeApplication = new Button("Close Application");
+        closeApplication.setOnAction(event ->{stage.close();
         });
 
         //Add Item to Cart Button Info
-        Button addToCartButton = new Button("Add Selected Item to Cart");
-        addToCartButton.setOnAction(event -> {
+        Button addToCartButtonAmenity = new Button("Add Selected Amenity to Cart");
+        addToCartButtonAmenity.setOnAction(event -> {
             Amenity amenity = listViewLeft.getSelectionModel().getSelectedItem();
             if (amenity instanceof Pricable) {
                 observableCart.add((Pricable) amenity);
@@ -274,6 +373,17 @@ public class Example1 extends Application {
                 System.out.println("Not a Pricable");
             }
 
+        });
+
+        //Add Item to Cart Button Info
+        Button addToCartButtonRoom = new Button("Add Selected Room to Cart");
+        addToCartButtonRoom.setOnAction(event -> {
+            Room room = listViewRoom.getSelectionModel().getSelectedItem();
+            if (room instanceof Pricable) {
+                observableCart.add((Pricable) room);
+            } else {
+                System.out.println("Not a Pricable");
+            }
         });
 
         //Remove Items from cart Button
@@ -302,30 +412,41 @@ public class Example1 extends Application {
         //adding objects to hBox center buttons
         HBox hBoxCenterButtons = new HBox(25);
 //      hBox.getChildren().add(buttonOne);
-        hBoxCenterButtons.getChildren().add(buttonTwo);
-        hBoxCenterButtons.getChildren().add(buttonThree);
+        hBoxCenterButtons.getChildren().add(clearCanvas);
         hBoxCenterButtons.getChildren().add(getCost);
+        hBoxCenterButtons.getChildren().add(closeApplication);
 
 
-
-        //adding objects to vbox
+        //adding objects to center vbox
         VBox vBoxCenter = new VBox(10);
         vBoxCenter.getChildren().add(programInformation);
+
         vBoxCenter.getChildren().add(nameFieldTip);
         vBoxCenter.getChildren().add(userNameField);
+
+        vBoxCenter.getChildren().add(emailFieldTip);
+        vBoxCenter.getChildren().add(userEmailField);
+
+        vBoxCenter.getChildren().add(phoneNumFieldTip);
+        vBoxCenter.getChildren().add(userPhoneNumField);
+
         vBoxCenter.getChildren().add(dayFieldTip);
         vBoxCenter.getChildren().add(userDayField);
+
         vBoxCenter.getChildren().add(hBoxCenterButtons);
 
         //adding objects to hBox that is below the catalog
         HBox hBoxCartButtons = new HBox(25);
-        hBoxCartButtons.getChildren().add(addToCartButton);
+        hBoxCartButtons.getChildren().add(addToCartButtonAmenity);
 
         //adding object to vBox catalog
         VBox vBoxCatalog = new VBox(10);
         vBoxCatalog.getChildren().add(amenityListInformation);
         vBoxCatalog.getChildren().add(listViewLeft);
         vBoxCatalog.getChildren().add(hBoxCartButtons);
+        vBoxCatalog.getChildren().add(listViewRoom);
+        vBoxCatalog.getChildren().add(addToCartButtonRoom);
+
 
         //adding objects to an hBox that holds the buttons below the shopping cart
         HBox hBoxShoppingCartButtons = new HBox(25);
@@ -351,7 +472,7 @@ public class Example1 extends Application {
 
 
         //Setting scene
-        Scene scene = new Scene(group, 800, 600);
+        Scene scene = new Scene(group, 1200, 1080);
         scene.setFill(Color.BEIGE);
 
 

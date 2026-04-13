@@ -43,24 +43,24 @@ public class ExecutiveSuite extends Room {
     @Override
     public String toString() {
         return "ExecutiveSuite{" +
-                "suiteName='" + getRoomName() + '\'' +
-                ", suiteNum=" + getRoomNum() +
-                ", suitePrice=" + getPrice() +
-                ", suiteReservationStatus=" + isRoomReservationStatus() +
-                ", suiteCleaningStatus=" + isRoomCleaningStatus() +
-                ", suiteHottubStatus=" + suiteHottubStatus +
-                ", suiteNumBeds=" + suiteNumBeds +
+                "\n suiteType='" + getRoomName() + '\'' +
+                "\n suiteNum=" + getRoomNum() +
+                "\n suitePrice=" + getPrice() +
+                "\n suiteReservationStatus=" + isRoomReservationStatus() +
+                "\n suiteCleaningStatus=" + isRoomCleaningStatus() +
+                "\n suiteHottubStatus=" + suiteHottubStatus +
+                "\n suiteNumBeds=" + suiteNumBeds +
                 '}';
     }
 
     @Override
     public double getPrice() {
         if (suiteHottubStatus) {
-            BigDecimal price = new BigDecimal(getRoomPrice() + 10 + (double) (suiteNumBeds * 10) /10);
+            BigDecimal price = new BigDecimal(getRoomPrice() + 10 + (suiteNumBeds * 10 - 10));
             BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
             return roundedPrice.doubleValue();
         } else {
-            BigDecimal price = new BigDecimal(getRoomPrice() + (double) (suiteNumBeds * 10) /10);
+            BigDecimal price = new BigDecimal(getRoomPrice() + (suiteNumBeds * 10 - 10));
             BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
             return roundedPrice.doubleValue();
         }

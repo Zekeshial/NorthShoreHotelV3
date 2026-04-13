@@ -31,18 +31,18 @@ public class JuniorSuite extends Room {
     @Override
     public String toString() {
         return "JuniorSuite{" +
-                "suiteName='" + getRoomName() + '\'' +
-                ", suiteNum=" + getRoomNum() +
-                ", suitePrice=" + getPrice() +
-                ", suiteReservationStatus=" + isRoomReservationStatus() +
-                ", suiteCleaningStatus=" + isRoomCleaningStatus() +
-                ", suiteNumBeds=" + suiteNumBeds +
+                "\n suiteType='" + getRoomName() + '\'' +
+                "\n suiteNum=" + getRoomNum() +
+                "\n suitePrice=" + getPrice() +
+                "\n suiteReservationStatus=" + isRoomReservationStatus() +
+                "\n suiteCleaningStatus=" + isRoomCleaningStatus() +
+                "\n suiteNumBeds=" + suiteNumBeds +
                 '}';
     }
 
     @Override
     public double getPrice() {
-            BigDecimal price = new BigDecimal(getRoomPrice() + (double) (suiteNumBeds * 10) /10);
+            BigDecimal price = new BigDecimal(getRoomPrice() + (suiteNumBeds * 10 - 10));
             BigDecimal roundedPrice = price.setScale(2, RoundingMode.HALF_UP);
             return roundedPrice.doubleValue();
     }
