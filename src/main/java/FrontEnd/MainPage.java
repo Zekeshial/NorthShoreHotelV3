@@ -3,7 +3,9 @@
 package FrontEnd;
 
 import BackEnd.Amenities.*;
+import BackEnd.Client;
 import BackEnd.Interfaces.Pricable;
+import BackEnd.Reservations.Reservation;
 import BackEnd.Rooms.*;
 import BackEnd.ShoppingCart;
 import javafx.application.Application;
@@ -19,48 +21,19 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Random;
-import java.time.LocalDateTime;
 
 
-public class Example1 extends Application {
-    /**
-     * Giving a random integer
-     *
-     * @param min min value you wish to have
-     * @param max Max value you wish to have
-     * @return a random integer given a range of min and max
-     */
-    public int randomNum(int min, int max) {
-        if (min > max) {
-            throw new IllegalArgumentException("Min is larger than max");
-        }
-
-        Random random = new Random();
-        return random.nextInt(min, max);
-    }
+public class MainPage extends Application {
 
 
-    /**
-     * Gives the stay duration time
-     *
-     * @param month Month you wish to stay until
-     * @param day   Day you wish to stay until
-     * @return Gives the time for 2026
-     */
-    public LocalDateTime dateTime(int month, int day) {
-        LocalDate currentDate = LocalDate.of(2026, month, day);
-        LocalTime endTime = LocalTime.of(6, 0);
-
-        return LocalDateTime.of(currentDate, endTime);
-    }
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -281,7 +254,6 @@ public class Example1 extends Application {
         //Creating variables that will be used
         int TextSize = 16;
 
-
         //Creating the borderPane
         BorderPane borderPane = new BorderPane();
 
@@ -289,7 +261,7 @@ public class Example1 extends Application {
         Group group = new Group();
 
         //Canvas of the UI
-        Canvas canvas = new Canvas(400, 300);
+        Canvas canvas = new Canvas(600, 600);
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
 
@@ -297,18 +269,27 @@ public class Example1 extends Application {
         graphicsContext.setFill(Color.BEIGE);
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
+        //Creating a Vbox to Hold the Receipt
+        VBox vBoxReceipt = new VBox();
 
 
 
 
         //title pane information
         Label programInformation = new Label("Welcome to the North Shore Hotel Reservation System");
-        Label nameFieldTip = new Label("Enter your name in the textbox below.");
-        Label dayFieldTip = new Label("Enter the number of Days you wish to stay");
+
         Label amenityListInformation = new Label("This is a list of amenities you can purchase.");
         Label cartListInformation = new Label("This is your shopping cart or list of items you wish to purchase.");
+        Label roomListInformation = new Label("This is a list of rooms available to be reserved.");
+
+        Label nameFieldTip = new Label("Enter your name in the textbox below.");
+        Label dayFieldTip = new Label("Enter the number of Days you wish to stay");
         Label emailFieldTip = new Label("Enter your Email in the textbox below.");
         Label phoneNumFieldTip = new Label("Enter your phone number in the textbox below.");
+
+        Label programOutputInformationTextField = new Label();
+        programOutputInformationTextField.setWrapText(true);
+        programOutputInformationTextField.setPrefWidth(600);
 
 
         //Text field pane information
@@ -363,7 +344,7 @@ public class Example1 extends Application {
         closeApplication.setOnAction(event ->{stage.close();
         });
 
-        //Add Item to Cart Button Info
+        //Add Amenity to Cart Button Info
         Button addToCartButtonAmenity = new Button("Add Selected Amenity to Cart");
         addToCartButtonAmenity.setOnAction(event -> {
             Amenity amenity = listViewLeft.getSelectionModel().getSelectedItem();
@@ -375,14 +356,23 @@ public class Example1 extends Application {
 
         });
 
-        //Add Item to Cart Button Info
+        //Add Room to Cart Button Info
         Button addToCartButtonRoom = new Button("Add Selected Room to Cart");
         addToCartButtonRoom.setOnAction(event -> {
-            Room room = listViewRoom.getSelectionModel().getSelectedItem();
-            if (room instanceof Pricable) {
-                observableCart.add((Pricable) room);
+            Room selectedRoom = listViewRoom.getSelectionModel().getSelectedItem();
+            boolean observableRoomStatus = true;
+            //Checking to see if a room has already been added to the cart
+            for (Pricable roomsInList: observableCart){
+                if (roomsInList instanceof Room) {
+                    observableRoomStatus = false;
+                    break;
+                }
+            }
+            if (selectedRoom instanceof Pricable && observableRoomStatus) {
+                observableCart.add((Pricable) selectedRoom);
             } else {
-                System.out.println("Not a Pricable");
+                programOutputInformationTextField.setText("You have already selected a room to stay in. " +
+                        "To select a different one first remove the selected room and then add a new room.");
             }
         });
 
@@ -394,14 +384,72 @@ public class Example1 extends Application {
         });
 
 
+
         //Get total cost of Items in the viewable shopping cart button
-        Button getCost = new Button ("Get Total");
+        Button getCost = new Button ("Get Receipt");
         getCost.setOnAction(actionEvent -> {
+            //Creating a class shopping cart to hold purchasable Items
             ShoppingCart cart = new ShoppingCart();
-            for (Pricable itemsInCart: observableCart){
-                cart.addItemToCart(itemsInCart);
+
+            //Creating a Client based text fields
+            Client client = new Client();
+            client.setClientName(userNameField.getText());
+            client.setClientEmail(userEmailField.getText());
+            client.setClientPhoneNum(userPhoneNumField.getText());
+
+            //Creating Reservations
+            Reservation reservation = new Reservation();
+            reservation.setCustomer(client);
+            reservation.setStayStartDate(LocalDate.now());
+            reservation.setStayDuration(userDayField.getIntValue());
+            for (Pricable roomsInList: observableCart) {
+                if (roomsInList instanceof Room) {
+                    reservation.setRoom((Room) roomsInList);
+                    break;
+                }
             }
-            System.out.println(cart.getTotalCostOfItems());
+            //Adding reservation to the cart
+            cart.addItemToCart(reservation);
+
+            //Adding amenities to the cart
+            for (Pricable itemsInCart: observableCart) {
+                if (itemsInCart instanceof Amenity) {
+                    cart.addItemToCart(itemsInCart);
+                }
+            }
+
+            //Creating The Information on the receipt
+            //Removing receipt if one already existed
+            vBoxReceipt.getChildren().clear();
+
+            Text receiptStartingInfo = new Text();
+            receiptStartingInfo.setWrappingWidth(600);
+
+            //Creating the starting info
+            receiptStartingInfo.setText("Receipt sent to: " + reservation.getCustomer().getClientEmail() +
+                    "\nClient : " + reservation.getCustomer().getClientName() +
+                    "\nClients Room: " + reservation.getRoom().getRoomName() + " " + reservation.getRoom().getRoomNum() +
+                    "\n-----------------------------" +
+                    "\nStay Duration: " + reservation.getStayDuration() + " Days" +
+                    "\nCost of stays: " + reservation.getPrice());
+            vBoxReceipt.getChildren().add(receiptStartingInfo);
+
+            //Creating the amenity info for the receipt
+            for (Pricable itemsInCart: observableCart) {
+                if (itemsInCart instanceof Amenity) {
+                    Text amenityInReceipt = new Text();
+                    amenityInReceipt.setWrappingWidth(600);
+                    amenityInReceipt.setText("\nAmenity Name: " + ((Amenity) itemsInCart).getAmenityName() + ", Price: " + itemsInCart.getPrice());
+                    vBoxReceipt.getChildren().add(amenityInReceipt);
+                }
+            }
+
+            //creating the total/ending portion of the receipt
+            Text receiptEndingInfo = new Text();
+            receiptEndingInfo.setWrappingWidth(600);
+            receiptEndingInfo.setText("-----------------------------"
+            + "\nTotal Due: " + cart.getTotalCostOfItems());
+            vBoxReceipt.getChildren().add(receiptEndingInfo);
         });
 
 
@@ -435,6 +483,8 @@ public class Example1 extends Application {
 
         vBoxCenter.getChildren().add(hBoxCenterButtons);
 
+        vBoxCenter.getChildren().add(programOutputInformationTextField);
+
         //adding objects to hBox that is below the catalog
         HBox hBoxCartButtons = new HBox(25);
         hBoxCartButtons.getChildren().add(addToCartButtonAmenity);
@@ -444,6 +494,7 @@ public class Example1 extends Application {
         vBoxCatalog.getChildren().add(amenityListInformation);
         vBoxCatalog.getChildren().add(listViewLeft);
         vBoxCatalog.getChildren().add(hBoxCartButtons);
+        vBoxCatalog.getChildren().add(roomListInformation);
         vBoxCatalog.getChildren().add(listViewRoom);
         vBoxCatalog.getChildren().add(addToCartButtonRoom);
 
@@ -457,6 +508,7 @@ public class Example1 extends Application {
         vBoxCart.getChildren().add(cartListInformation);
         vBoxCart.getChildren().add(listViewRight);
         vBoxCart.getChildren().add(hBoxShoppingCartButtons);
+        vBoxCart.getChildren().add(vBoxReceipt);
 
 
         //Adding objects to the BorderPane
@@ -464,7 +516,7 @@ public class Example1 extends Application {
         borderPane.setLeft(vBoxCatalog);
         borderPane.setCenter(vBoxCenter);
         borderPane.setRight(vBoxCart);
-        borderPane.setBottom(canvas);
+        borderPane.setBottom(null);
 
 
         //Adding objects to the group

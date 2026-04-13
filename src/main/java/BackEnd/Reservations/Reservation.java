@@ -1,21 +1,30 @@
 package BackEnd.Reservations;
 
 import BackEnd.Client;
+import BackEnd.Interfaces.Pricable;
 import BackEnd.Rooms.Room;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-public class Reservation {
+public class Reservation implements Pricable {
 
     private Client customer;
-    private Date stayStartDate, stayEndDate;
+    private LocalDate stayStartDate;
+    private int stayDuration;
     private Room room;
 
-    public Reservation(Client customer, Date stayStartDate, Date stayEndDate, Room room) {
+    public Reservation(Client customer, LocalDate stayStartDate, int stayDuration, Room room) {
         this.customer = customer;
         this.stayStartDate = stayStartDate;
-        this.stayEndDate = stayEndDate;
+        this.stayDuration = stayDuration;
         this.room = room;
+    }
+
+    public Reservation() {
+        this.customer = null;
+        this.stayStartDate = null;
+        this.stayDuration = 0;
+        this.room = null;
     }
 
     public Client getCustomer() {
@@ -26,21 +35,18 @@ public class Reservation {
         this.customer = customer;
     }
 
-    public Date getStayStartDate() {
+    public LocalDate getStayStartDate() {
         return stayStartDate;
     }
 
-    public void setStayStartDate(Date stayStartDate) {
+    public void setStayStartDate(LocalDate stayStartDate) {
         this.stayStartDate = stayStartDate;
     }
 
-    public Date getStayEndDate() {
-        return stayEndDate;
+    public LocalDate getStayEndDate() {
+        return stayStartDate.plusDays(stayDuration);
     }
 
-    public void setStayEndDate(Date stayEndDate) {
-        this.stayEndDate = stayEndDate;
-    }
 
     public Room getRoom() {
         return room;
@@ -50,13 +56,27 @@ public class Reservation {
         this.room = room;
     }
 
+    public int getStayDuration() {
+        return stayDuration;
+    }
+
+    public void setStayDuration(int stayDuration) {
+        this.stayDuration = stayDuration;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +
                 "customer=" + customer +
                 ", stayStartDate=" + stayStartDate +
-                ", stayEndDate=" + stayEndDate +
+                ", stayEndDate=" + getStayEndDate() +
+                ", stayDuration=" + stayDuration +
                 ", room=" + room +
                 '}';
+    }
+
+    @Override
+    public double getPrice() {
+        return room.getPrice() * stayDuration;
     }
 }
