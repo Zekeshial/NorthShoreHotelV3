@@ -526,7 +526,7 @@ public class MainPage extends Application {
 
 
         //Setting scene
-        Scene scene = new Scene(group, 1200, 1080);
+        Scene scene = new Scene(group, 900, 600);
         scene.setFill(Color.BEIGE);
 
 

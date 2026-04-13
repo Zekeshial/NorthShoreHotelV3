@@ -1,5 +1,7 @@
 package BackEnd.DataManagment;
 
+import com.opencsv.CSVWriter;
+
 import java.io.*;
 import java.util.Random;
 
@@ -67,6 +69,7 @@ public class DataFileWriter {
     }
 
     public void removeInformation(String dataToRemove) {
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
              BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String currentLine;
