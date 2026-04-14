@@ -1,7 +1,9 @@
 package BackEnd.DataManagment;
 
+import BackEnd.Utilities.Maintenance;
+import com.opencsv.CSVWriter;
+
 import java.io.*;
-import java.util.Random;
 
 public class DataFileWriter {
 
@@ -30,31 +32,16 @@ public class DataFileWriter {
         this.fileName = fileName;
     }
 
-
-
-
     /**
-     * Creates the file
+     * Creates a csv file with a name based on the constructor, and then creates a Maintenance Request based on the information from the class Maintenance.
+     * @param dataToWrite The Maintenance that is being requested
      */
-    public void fileCreator() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            System.out.println("File written Successfully");
-        } catch (FileNotFoundException fNotFound) {
-        System.out.println("The file you tried to open could not be opened." + fNotFound.getMessage());
-        } catch (StackOverflowError e){
-            System.err.println("A Stack Over flow error has occurred. Maybe try to not make the file Column Length so Long to fix the problem.");
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-    public void addInformation(String dataToWrite) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            writer.newLine();
-            writer.write(dataToWrite);
+    public void writeMaintenanceRequest(Maintenance dataToWrite) {
+        try (CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(fileName)))) {
+            String[] header = {"Name", "Description", "Location"};
+            writer.writeNext(header);
+            String[] info = {dataToWrite.getName(), dataToWrite.getDescription(), dataToWrite.getLocation().getRoomName() + " " + dataToWrite.getLocation().getRoomNum()};
+            writer.writeNext(info);
             System.out.println("File written Successfully");
         } catch (FileNotFoundException fNotFound) {
             System.out.println("The file you tried to open could not be opened." + fNotFound.getMessage());
@@ -64,28 +51,9 @@ public class DataFileWriter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void removeInformation(String dataToRemove) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-             BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String currentLine;
-            while((currentLine = reader.readLine()) != null) {
-                if(!currentLine.trim().equals(dataToRemove)) {
-                    writer.write(currentLine + System.getProperty("line.separator"));
-                }
-            }
-        } catch (FileNotFoundException fNotFound) {
-            System.out.println("The file you tried to open could not be opened." + fNotFound.getMessage());
-        } catch (StackOverflowError e) {
-            System.err.println("A Stack Over flow error has occurred. Maybe try to not make the file Column Length so Long to fix the problem.");
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
 
     }
+
 
 
 

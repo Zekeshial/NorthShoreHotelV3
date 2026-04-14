@@ -4,34 +4,27 @@ package FrontEnd;
 
 import BackEnd.Amenities.*;
 import BackEnd.Client;
+import BackEnd.DataManagment.DataFileWriter;
 import BackEnd.Interfaces.Pricable;
 import BackEnd.Reservations.Reservation;
 import BackEnd.Rooms.*;
 import BackEnd.ShoppingCart;
+import BackEnd.Utilities.Maintenance;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 
 public class MainPage extends Application {
@@ -250,27 +243,12 @@ public class MainPage extends Application {
 
 
 
-
-
-
-
-        //Creating variables that will be used
-        int TextSize = 16;
-
         //Creating the borderPane
         BorderPane borderPane = new BorderPane();
 
         //Creating a group for all the children of pane
         Group group = new Group();
 
-        //Canvas of the UI
-        Canvas canvas = new Canvas(600, 600);
-        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-
-
-        //Drawing a rectangle on the canvas
-        graphicsContext.setFill(Color.BEIGE);
-        graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         //Creating a Vbox to Hold the Receipt
         VBox vBoxReceipt = new VBox(0);
@@ -280,7 +258,7 @@ public class MainPage extends Application {
 
 
         //title pane information
-        Label programInformation = new Label("Welcome to the North Shore Hotel Reservation System");
+        Label programWelcomeMessage = new Label("Welcome to the North Shore Hotel Reservation System");
 
         Label amenityListInformation = new Label("This is a list of amenities you can purchase.");
         Label cartListInformation = new Label("This is your shopping cart or list of items you wish to purchase.");
@@ -290,6 +268,8 @@ public class MainPage extends Application {
         Label dayFieldTip = new Label("Enter the number of Days you wish to stay");
         Label emailFieldTip = new Label("Enter your Email in the textbox below.");
         Label phoneNumFieldTip = new Label("Enter your phone number in the textbox below.");
+        Text programOutputInfoTextTip = new Text("The area below will give information if you do something wrong or correct in the program.");
+        Label maintenanceRequestFieldTip = new Label("Enter the description of the maintenance you want done on your room below.");
 
 
 
@@ -307,23 +287,22 @@ public class MainPage extends Application {
         NumericTextField userDayField = new NumericTextField();
         userDayField.setPromptText("Enter Days Here");
 
+        TextField userMaintenanceRequest = new TextField();
+        userMaintenanceRequest.setPromptText("Enter the description of Your Request Here");
+
         Text programOutputInformationTextField = new Text();
         programOutputInformationTextField.setWrappingWidth(300);
 
 
 
         //Clear button info
-        Button clearCanvas = new Button("Clear");
-        clearCanvas.setOnAction(event -> {
+        Button clearInfo = new Button("Clear");
+        clearInfo.setOnAction(event -> {
             //Clearing Fields
             userNameField.clear();
             userDayField.clear();
             userEmailField.clear();
             userPhoneNumField.clear();
-            //Clearing the Canvas
-            graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            graphicsContext.setFill(Color.BEIGE);
-            graphicsContext.fillRect(0, 0, canvas.getWidth(), TextSize);
             //Clearing vBoxOutPuts
             vBoxProgramOutputInfo.getChildren().clear();
             vBoxReceipt.getChildren().clear();
@@ -361,13 +340,17 @@ public class MainPage extends Application {
             }
             if (selectedRoom instanceof Pricable && observableRoomStatus) {
                 observableCart.add((Pricable) selectedRoom);
+            } else if (selectedRoom == null) {
+                vBoxProgramOutputInfo.getChildren().clear();
+                programOutputInformationTextField.setText("You haven't selected a Room. Please select a room first before trying to add one.");
+                vBoxProgramOutputInfo.getChildren().add(programOutputInformationTextField);
             } else {
                 vBoxProgramOutputInfo.getChildren().clear();
                 programOutputInformationTextField.setText("You have already selected a room to stay in. " +
                         "To select a different one first remove the selected room and then add a new room.");
-                //Code needs to be looked at
+                vBoxProgramOutputInfo.getChildren().add(programOutputInformationTextField);
 
-//                vBoxProgramOutputInfo.getChildren().add(programOutputInformationTextField);
+                //Code needs to be looked at
 //                try (ScheduledExecutorService service = Executors.newScheduledThreadPool(1)) {
 //                    service.schedule(() -> {
 //                        vBoxProgramOutputInfo.getChildren().clear();
@@ -454,6 +437,36 @@ public class MainPage extends Application {
             vBoxReceipt.getChildren().add(receiptEndingInfo);
         });
 
+        //Creating a button for Maintenance requests
+        Button maintenanceRequest = new Button("Request Maintenance");
+        maintenanceRequest.setOnAction(actionEvent -> {
+            Maintenance maintenance = new Maintenance();
+            maintenance.setName(userNameField.getText());
+            maintenance.setDescription(userMaintenanceRequest.getText());
+            for (Pricable roomsInList: observableCart) {
+                if (roomsInList instanceof Room) {
+                    maintenance.setLocation((Room) roomsInList);
+                    break;
+                } else {
+                    vBoxProgramOutputInfo.getChildren().clear();
+                    programOutputInformationTextField.setText("You don't have a room selected in the cart. In order to make a request select the your room and add it to the cart. Then try again.");
+                    vBoxProgramOutputInfo.getChildren().add(programOutputInformationTextField);
+                }
+            }
+            if (maintenance.getLocation() == null) {
+                vBoxProgramOutputInfo.getChildren().clear();
+                programOutputInformationTextField.setText("You don't have a room selected in the cart. In order to make a request select the your room and add it to the cart. Then try again.");
+                vBoxProgramOutputInfo.getChildren().add(programOutputInformationTextField);
+            } else {
+                DataFileWriter writer = new DataFileWriter("Maintenance Requests");
+                writer.writeMaintenanceRequest(maintenance);
+
+                vBoxProgramOutputInfo.getChildren().clear();
+                programOutputInformationTextField.setText("Request has been submitted.");
+                vBoxProgramOutputInfo.getChildren().add(programOutputInformationTextField);
+            }
+        });
+
 
 
 
@@ -461,15 +474,16 @@ public class MainPage extends Application {
 
         //adding objects to hBox center buttons
         HBox hBoxCenterButtons = new HBox(25);
-//      hBox.getChildren().add(buttonOne);
-        hBoxCenterButtons.getChildren().add(clearCanvas);
+        hBoxCenterButtons.getChildren().add(maintenanceRequest);
         hBoxCenterButtons.getChildren().add(getCost);
+        hBoxCenterButtons.getChildren().add(clearInfo);
         hBoxCenterButtons.getChildren().add(closeApplication);
+
 
 
         //adding objects to center vbox
         VBox vBoxCenter = new VBox(10);
-        vBoxCenter.getChildren().add(programInformation);
+        vBoxCenter.getChildren().add(programWelcomeMessage);
 
         vBoxCenter.getChildren().add(nameFieldTip);
         vBoxCenter.getChildren().add(userNameField);
@@ -483,8 +497,12 @@ public class MainPage extends Application {
         vBoxCenter.getChildren().add(dayFieldTip);
         vBoxCenter.getChildren().add(userDayField);
 
+        vBoxCenter.getChildren().add(maintenanceRequestFieldTip);
+        vBoxCenter.getChildren().add(userMaintenanceRequest);
+
         vBoxCenter.getChildren().add(hBoxCenterButtons);
 
+        vBoxCenter.getChildren().add(programOutputInfoTextTip);
         vBoxCenter.getChildren().add(vBoxProgramOutputInfo);
 
         //adding objects to hBox that is below the catalog
@@ -496,9 +514,16 @@ public class MainPage extends Application {
         vBoxCatalog.getChildren().add(amenityListInformation);
         vBoxCatalog.getChildren().add(listViewLeft);
         vBoxCatalog.getChildren().add(hBoxCartButtons);
-        vBoxCatalog.getChildren().add(roomListInformation);
-        vBoxCatalog.getChildren().add(listViewRoom);
-        vBoxCatalog.getChildren().add(addToCartButtonRoom);
+
+        //adding object to a vBox call List of Rooms
+        VBox vBoxListOfRooms = new VBox(10);
+        vBoxListOfRooms.getChildren().add(roomListInformation);
+        vBoxListOfRooms.getChildren().add(listViewRoom);
+        vBoxListOfRooms.getChildren().add(addToCartButtonRoom);
+
+        HBox hBoxLeftSideOfBorderPane = new HBox(2);
+        hBoxLeftSideOfBorderPane.getChildren().add(vBoxListOfRooms);
+        hBoxLeftSideOfBorderPane.getChildren().add(vBoxCatalog);
 
 
         //adding objects to an hBox that holds the buttons below the shopping cart
@@ -514,8 +539,8 @@ public class MainPage extends Application {
 
 
         //Adding objects to the BorderPane
-//        borderPane.setTop(vBoxCenter);
-        borderPane.setLeft(vBoxCatalog);
+        borderPane.setTop(programWelcomeMessage);
+        borderPane.setLeft(hBoxLeftSideOfBorderPane);
         borderPane.setCenter(vBoxCenter);
         borderPane.setRight(vBoxCart);
         borderPane.setBottom(null);
@@ -524,9 +549,13 @@ public class MainPage extends Application {
         //Adding objects to the group
         group.getChildren().add(borderPane);
 
+        //Adding a ScrollPane to allow the window to fit any size of content displayed, then adding our group to the scroll pane to allow everything to be displayed.
+        ScrollPane scrollPane = new ScrollPane(group);
+        scrollPane.setStyle("-fx-background:  #eee2b1; -fx-border-color: #42d7f5;");
+
 
         //Setting scene
-        Scene scene = new Scene(group, 1200, 1080);
+        Scene scene = new Scene(scrollPane, 1280, 900);
         scene.setFill(Color.BEIGE);
 
 
@@ -541,6 +570,7 @@ public class MainPage extends Application {
 
         //Showing stage
         stage.show();
+
 
     }
 

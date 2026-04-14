@@ -64,6 +64,4 @@ public class Catalog {
                 '}';
     }
 
-    static void main(String[] args) {
-    }
 }
