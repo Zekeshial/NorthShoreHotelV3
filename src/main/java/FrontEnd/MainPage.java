@@ -303,6 +303,7 @@ public class MainPage extends Application {
             userDayField.clear();
             userEmailField.clear();
             userPhoneNumField.clear();
+            userMaintenanceRequest.clear();
             //Clearing vBoxOutPuts
             vBoxProgramOutputInfo.getChildren().clear();
             vBoxReceipt.getChildren().clear();

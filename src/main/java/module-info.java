@@ -1,7 +1,6 @@
 module com.example.northshorehotelv3 {
     requires javafx.controls;
     requires javafx.fxml;
-    requires transitive org.apache.commons.csv;
     requires transitive com.opencsv;
 
 
