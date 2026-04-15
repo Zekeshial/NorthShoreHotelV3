@@ -69,6 +69,10 @@ public class Dinning extends Amenity implements Pricable {
                 '}';
     }
 
+    /**
+     * gives you the price of the amenity based on if you want food delivery or not.
+     * @return Give you the price of the amenity as a double.
+     */
     @Override
     public double getPrice() {
         if (isFoodDelivery()) {

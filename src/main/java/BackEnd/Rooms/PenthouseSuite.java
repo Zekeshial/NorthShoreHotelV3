@@ -65,6 +65,11 @@ public class PenthouseSuite extends Room {
                 '}';
     }
 
+    /**
+     * Gives you the price of the room based on if you have a kitchen and/or hot tub in the room or not
+     * and the number of beds in the room.
+     * @return The Price of the Room as a double.
+     */
     @Override
     public double getPrice() {
         if (suiteHottubStatus && kitchenStatus) {

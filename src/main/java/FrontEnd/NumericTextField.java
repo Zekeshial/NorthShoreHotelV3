@@ -14,6 +14,9 @@ import java.util.function.UnaryOperator;
 
 public class NumericTextField extends TextField {
 
+    /**
+     * The constructor for the numberTextField generator
+     */
     public NumericTextField() {
         super();
 

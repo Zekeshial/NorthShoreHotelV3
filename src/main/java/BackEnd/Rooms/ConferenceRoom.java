@@ -40,6 +40,10 @@ public class ConferenceRoom extends Room {
                 '}';
     }
 
+    /**
+     * Gives you the price of the room based on if a projector is present in the room or not.
+     * @return The price of the stay as a double.
+     */
     @Override
     public double getPrice() {
         if (projectorStatus) {

@@ -75,6 +75,10 @@ public class Reservation implements Pricable {
                 '}';
     }
 
+    /**
+     * Gives you the price of a reservation based on the rooms price and its stay duration
+     * @return The price of the reservation as a double
+     */
     @Override
     public double getPrice() {
         return room.getPrice() * stayDuration;

@@ -3,12 +3,13 @@
 package FrontEnd;
 
 import BackEnd.Amenities.*;
+import BackEnd.Lists.Catalog;
 import BackEnd.Client;
 import BackEnd.DataManagment.DataFileWriter;
 import BackEnd.Interfaces.Pricable;
 import BackEnd.Reservations.Reservation;
 import BackEnd.Rooms.*;
-import BackEnd.ShoppingCart;
+import BackEnd.Lists.ShoppingCart;
 import BackEnd.Utilities.Maintenance;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -35,81 +36,7 @@ public class MainPage extends Application {
     public void start(Stage stage) throws IOException {
 
 
-
-
-        //creating a list of amenities that customers can buy from
-        Dinning dinner = new Dinning(
-                "Dinning",
-                true,
-                19.99,
-                "A delicious meal fit for a king.",
-                "Dinner",
-                false);
-
-        Hiking hikingLakeSuperior = new Hiking(
-                "Hiking",
-                true,
-                29.99,
-                "You get tour guide to show you the best views along Lake Superior.",
-                "coastal",
-                "Lake Superior",
-                1);
-
-        Hiking hikingGrandPortageTrail = new Hiking(
-                "Hiking",
-                true,
-                29.99,
-                "You get tour guide to show you the best views along the Grand Portage Trail.",
-                "inland",
-                "Grand Portage Trail",
-                2);
-
-        Kayaking kayakingLakeSuperior = new Kayaking(
-                "Kayaking Lake Superior",
-                true,
-                49.99,
-                "You get tour guide to show you the best views along the Lake Superior.",
-                "Lake Superior",
-                "Medium",
-                false
-        );
-
-        Kayaking kayakingSaintLouisRiver = new Kayaking(
-                "Kayaking SaintLouis River",
-                true,
-                49.99,
-                "You get tour guide to show you the best views along the Saint Louis River.",
-                "Saint Louis River",
-                "Hard",
-                false
-        );
-        Skiing skiingSpiritMountain = new Skiing(
-                "Skiing Spirit Mountain",
-                true,
-                49.99,
-                "You go on a skiing on Spirit Mountain.",
-                "Spirit Mountain",
-                "Medium",
-                false
-        );
-
-        Movie yourName = new Movie(
-                "Movie",
-                true,
-                4.99,
-                "Two teenagers share a profound, magical connection upon discovering they are swapping bodies. Things manage to become even more complicated when the boy and girl decide to meet in person.",
-                "Your Name",
-                "1 hour 46 min"
-        );
-
-        Movie avengersEndGame = new Movie(
-                "Movie",
-                true,
-                4.99,
-                "After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",
-                "Avengers End Game",
-                "3 hours 1 min"
-        );
+        Catalog catalog = new Catalog();
 
         //creating a list of all Rooms
         ArrayList<Room> listOfRooms = new ArrayList<>();
@@ -229,14 +156,10 @@ public class MainPage extends Application {
 
 
         //adding items to the  Observable Catalog
-        observableCatalog.add(dinner);
-        observableCatalog.add(hikingLakeSuperior);
-        observableCatalog.add(hikingGrandPortageTrail);
-        observableCatalog.add(kayakingLakeSuperior);
-        observableCatalog.add(kayakingSaintLouisRiver);
-        observableCatalog.add(skiingSpiritMountain);
-        observableCatalog.add(yourName);
-        observableCatalog.add(avengersEndGame);
+        for (Amenity amenity : catalog.getList()) {
+            observableCatalog.add(amenity);
+        }
+
 
         //adding Items to the Observable List of Rooms
         observableRooms.addAll(listOfRooms);

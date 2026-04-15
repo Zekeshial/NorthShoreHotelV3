@@ -1,4 +1,4 @@
-package BackEnd;
+package BackEnd.Lists;
 
 import BackEnd.Interfaces.Pricable;
 
@@ -37,6 +37,10 @@ public class ShoppingCart {
                 '}';
     }
 
+    /**
+     * Gives you the total cost of items in the shopping cart as a double
+     * @return The total cost of the carts items as a double.
+     */
     public double getTotalCostOfItems(){
         double total = 0;
 
