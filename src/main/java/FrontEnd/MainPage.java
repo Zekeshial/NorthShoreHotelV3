@@ -267,8 +267,16 @@ public class MainPage extends Application {
         //Creating a button for Maintenance requests
         Button maintenanceRequest = new Button("Request Maintenance");
         maintenanceRequest.setOnAction(actionEvent -> {
+
+            //Creating a Client based text fields
+            Client client = new Client();
+            client.setClientName(userNameField.getText());
+            client.setClientEmail(userEmailField.getText());
+            client.setClientPhoneNum(userPhoneNumField.getText());
+
+
             Maintenance maintenance = new Maintenance();
-            maintenance.setClient(userNameField.getText());
+            maintenance.setClient(client);
             maintenance.setDescription(userMaintenanceRequest.getText());
             for (Pricable roomsInList: observableCart) {
                 if (roomsInList instanceof Room) {

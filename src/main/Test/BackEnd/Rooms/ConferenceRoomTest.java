@@ -40,7 +40,13 @@ class ConferenceRoomTest {
 
         ConferenceRoom cr = new ConferenceRoom();
         String actual = cr.toString();
-        String expected = "ConferenceRoom{roomName='default', roomNum=0, roomDuration=0, roomPrice=0.0, roomReservationStatus=false, roomCleaningStatus=false, projectorStatus=false}";
+        String expected = "ConferenceRoom{" +
+                "\nroomName='default'" +
+                "\nroomNum=0" +
+                "\nroomPrice=0.0" +
+                "\nroomReservationStatus=false" +
+                "\nroomCleaningStatus=false" +
+                "\nprojectorStatus=false}";
         assertEquals(expected, actual);
 
 
@@ -50,9 +56,16 @@ class ConferenceRoomTest {
 
     void ToString2() {
 
+
         ConferenceRoom cr = new ConferenceRoom("room1", 1, 19.99, true, true, true);
         String actual = cr.toString();
-        String expected = "ConferenceRoom{roomName='room1', roomNum=1, roomDuration=18, roomPrice=19.99, roomReservationStatus=true, roomCleaningStatus=true, projectorStatus=true}";
+        String expected = "ConferenceRoom{" +
+                "\nroomName='room1'" +
+                "\nroomNum=1" +
+                "\nroomPrice=29.99" +
+                "\nroomReservationStatus=true" +
+                "\nroomCleaningStatus=true" +
+                "\nprojectorStatus=true}";
         assertEquals(expected, actual);
 
     }
