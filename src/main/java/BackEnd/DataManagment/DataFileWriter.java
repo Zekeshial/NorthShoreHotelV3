@@ -44,7 +44,7 @@ public class DataFileWriter {
         try (CSVWriter writer = new CSVWriter(new BufferedWriter(new FileWriter(fileName)))) {
             String[] header = {"Name", "Description", "Location"};
             writer.writeNext(header);
-            String[] info = {dataToWrite.getName(), dataToWrite.getDescription(), dataToWrite.getLocation().getRoomName() + " " + dataToWrite.getLocation().getRoomNum()};
+            String[] info = {dataToWrite.getClient(), dataToWrite.getDescription(), dataToWrite.getLocation().getRoomName() + " " + dataToWrite.getLocation().getRoomNum()};
             writer.writeNext(info);
             System.out.println("File written Successfully");
         } catch (FileNotFoundException fNotFound) {

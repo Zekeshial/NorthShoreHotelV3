@@ -26,7 +26,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * This class is the creating of the main page of the program.
@@ -269,7 +268,7 @@ public class MainPage extends Application {
         Button maintenanceRequest = new Button("Request Maintenance");
         maintenanceRequest.setOnAction(actionEvent -> {
             Maintenance maintenance = new Maintenance();
-            maintenance.setName(userNameField.getText());
+            maintenance.setClient(userNameField.getText());
             maintenance.setDescription(userMaintenanceRequest.getText());
             for (Pricable roomsInList: observableCart) {
                 if (roomsInList instanceof Room) {

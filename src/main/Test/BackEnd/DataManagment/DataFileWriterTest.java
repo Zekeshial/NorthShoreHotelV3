@@ -4,11 +4,6 @@ import BackEnd.Rooms.JuniorSuite;
 import BackEnd.Utilities.Maintenance;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import static org.junit.jupiter.api.Assertions.*;
-
 class DataFileWriterTest {
 
 
@@ -24,7 +19,7 @@ class DataFileWriterTest {
                 1);
 
         Maintenance maintenance = new Maintenance();
-        maintenance.setName("zac");
+        maintenance.setClient("zac");
         maintenance.setDescription("Knocks");
         maintenance.setLocation(suite);
 

@@ -1,8 +1,7 @@
 package BackEnd.Utilities;
 
+import BackEnd.Client;
 import BackEnd.Rooms.Room;
-
-import java.util.Date;
 
 /**
  * The Maintenance class handles the information related to a user making a maintenance request for their room.
@@ -10,27 +9,28 @@ import java.util.Date;
  */
 public class Maintenance {
 
-    private String name, description;
+    private Client client;
+    private String description;
     private Room location;
 
-    public Maintenance(String name, String description, Room location) {
-        this.name = name;
+    public Maintenance(Client client, String description, Room location) {
+        this.client = client;
         this.description = description;
         this.location = location;
     }
 
     public Maintenance() {
-        this.name = null;
+        this.client = null;
         this.description = null;
         this.location = null;
     }
 
-    public String getName() {
-        return name;
+    public Client getClient() {
+        return client;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public String getDescription() {
@@ -53,7 +53,7 @@ public class Maintenance {
     @Override
     public String toString() {
         return "Maintenance{" +
-                "name='" + name + '\'' +
+                "name='" + client + '\'' +
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
                 '}';

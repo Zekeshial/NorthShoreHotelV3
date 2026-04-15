@@ -21,6 +21,20 @@ class ConferenceRoomTest {
     }
 
     @Test
+    void getPrice2() {
+        ConferenceRoom cr = new ConferenceRoom("Conference Room",
+                300,
+                74.99,
+                false,
+                false,
+                false
+        );
+
+        assertEquals(74.99, cr.getPrice());
+
+    }
+
+    @Test
     void ToString() {
 
 
