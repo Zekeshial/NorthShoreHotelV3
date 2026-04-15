@@ -4,6 +4,10 @@ import BackEnd.Amenities.*;
 
 import java.util.ArrayList;
 
+/**
+ * The Catalog class handles the information related to the amenities that can be purchased at the North Shore Hotel.
+ * @Author Zachary Sandness
+ */
 public class Catalog {
 
     private ArrayList<Amenity> list;

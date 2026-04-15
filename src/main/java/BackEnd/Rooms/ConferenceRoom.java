@@ -3,6 +3,10 @@ package BackEnd.Rooms;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/**
+ * The Conference Room class is a Room that handles the information related to Conference Rooms.
+ * @Author Zachary Sandness
+ */
 public class ConferenceRoom extends Room {
     private boolean projectorStatus;
 

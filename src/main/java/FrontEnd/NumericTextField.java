@@ -12,6 +12,9 @@ import javafx.util.converter.IntegerStringConverter;
 
 import java.util.function.UnaryOperator;
 
+/**
+ * Creates a Numeric only TextField for getting only numbers form a user.
+ */
 public class NumericTextField extends TextField {
 
     /**

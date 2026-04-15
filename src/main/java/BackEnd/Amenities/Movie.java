@@ -1,7 +1,10 @@
 package BackEnd.Amenities;
 
 import BackEnd.Interfaces.Pricable;
-
+/**
+ * The Movie class is a amenity that handles the information related to renint/watching a movie while at the establishment.
+ * @Author Zachary Sandness
+ */
 public class Movie extends Amenity implements Pricable {
 
     private String movieName;

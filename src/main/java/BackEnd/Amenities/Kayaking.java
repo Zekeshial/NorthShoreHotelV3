@@ -6,7 +6,10 @@ import BackEnd.Interfaces.Rentable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-
+/**
+ * The Kayaking class is an amenity of the North Shore Hotel that handles the information related to the idea of kayaking near this establishment.
+ * @Author Zachary Sandness
+ */
 public class Kayaking extends Amenity implements Rentable, Pricable {
 
     private String location, difficulty;

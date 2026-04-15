@@ -5,7 +5,10 @@ import BackEnd.Interfaces.Rentable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
+/**
+ * The Skiing class is an amenity of the North Shore Hotel that handles the information related to the idea of skiing near this establishment.
+ * @Author Zachary Sandness
+ */
 public class Skiing extends Amenity implements Rentable, Pricable {
 
     private String location, difficulty;

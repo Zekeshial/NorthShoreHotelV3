@@ -2,7 +2,10 @@ package BackEnd.Rooms;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
+/**
+ * The Executive Suite class is a Room that handles the information related to Executive Suite.
+ * @Author Zachary Sandness
+ */
 public class ExecutiveSuite extends Room {
 
     private boolean suiteHottubStatus;

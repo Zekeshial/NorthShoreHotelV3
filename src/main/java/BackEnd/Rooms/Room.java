@@ -2,6 +2,10 @@ package BackEnd.Rooms;
 
 import BackEnd.Interfaces.Pricable;
 
+/**
+ * The Room class is a abstract class that creates attribute snd methods that every Room will have.
+ * @Author Zachary Sandess
+ */
 public abstract class Room implements Pricable {
 
     private String roomName;

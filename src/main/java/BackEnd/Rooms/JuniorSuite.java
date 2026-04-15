@@ -2,7 +2,10 @@ package BackEnd.Rooms;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
+/**
+ * The Junior Suite class is a Room that handles the information related to Junior Suite.
+ * @Author Zachary Sandness
+ */
 public class JuniorSuite extends Room {
 
     private int suiteNumBeds;

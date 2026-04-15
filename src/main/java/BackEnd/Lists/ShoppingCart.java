@@ -1,4 +1,9 @@
 package BackEnd.Lists;
+/**
+ * The ShoppingCart Class is a class that handles the items that a user wishes to purchase at the North Shore Hotel.
+ * This includes anything that is purchasable such as an amenity, making a reservation, or a room.
+ * @Author Zachary Sandness
+ */
 
 import BackEnd.Interfaces.Pricable;
 

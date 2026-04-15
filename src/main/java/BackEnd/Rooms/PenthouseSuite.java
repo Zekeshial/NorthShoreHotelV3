@@ -2,7 +2,10 @@ package BackEnd.Rooms;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
+/**
+ * The Penthouse Suite class is a Room that handles the information related to Penthouse Suite Suite.
+ * @Author Zachary Sandness
+ */
 public class PenthouseSuite extends Room {
 
     private boolean kitchenStatus, suiteHottubStatus;

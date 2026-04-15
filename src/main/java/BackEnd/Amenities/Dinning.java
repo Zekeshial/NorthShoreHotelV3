@@ -4,7 +4,10 @@ import BackEnd.Interfaces.Pricable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
+/**
+ * The Dinning class is an amenity of the North Shore Hotel that handles the information related to the idea of dinning at this establishment.
+ * @Author Zachary Sandness
+ */
 public class Dinning extends Amenity implements Pricable {
 
     private String dinningType;

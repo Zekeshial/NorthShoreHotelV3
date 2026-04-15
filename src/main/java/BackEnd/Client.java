@@ -2,7 +2,10 @@ package BackEnd;
 
 import java.util.Date;
 
-
+/**
+ * The client class handles the information related to a client or customer of the North Shore Hotel.
+ * @Author Zachary Sandness
+ */
 public class Client {
 
     private String clientName, clientEmail, clientPhoneNum;

@@ -1,4 +1,8 @@
 package BackEnd.Lists;
+/**
+ * The ListOfRooms class handles the creation and all things related to all of the rooms at the North Shore Hotel.
+ * @Author Zachary Sandness
+ */
 
 import BackEnd.Rooms.*;
 

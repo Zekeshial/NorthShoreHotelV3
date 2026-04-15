@@ -4,6 +4,10 @@ import BackEnd.Rooms.Room;
 
 import java.util.Date;
 
+/**
+ * The Maintenance class handles the information related to a user making a maintenance request for their room.
+ * @Author Zachary Sandness
+ */
 public class Maintenance {
 
     private String name, description;

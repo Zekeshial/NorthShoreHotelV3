@@ -1,4 +1,8 @@
 package BackEnd.Reservations;
+/**
+ * The Reservation Class handles the information related to making a reservation at the North Shore Hotel.
+ * @Author Zachary Sandness
+ */
 
 import BackEnd.Client;
 import BackEnd.Interfaces.Pricable;

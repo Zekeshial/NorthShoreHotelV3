@@ -2,6 +2,10 @@ package BackEnd.Amenities;
 
 import BackEnd.Interfaces.Pricable;
 
+/**
+ * The Amenity class is an abstract class that gives a basic outline for all amenities that the North Shore Hotel will use
+ * @Author Zachary Sandness
+ */
 public abstract class Amenity implements Pricable {
 
     private String amenityName;

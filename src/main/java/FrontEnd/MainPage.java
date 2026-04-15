@@ -28,7 +28,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
+/**
+ * This class is the creating of the main page of the program.
+ * @Author Zachary Sandness
+ */
 public class MainPage extends Application {
 
 

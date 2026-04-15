@@ -5,6 +5,10 @@ import com.opencsv.CSVWriter;
 
 import java.io.*;
 
+/**
+ * The DataFileWriter Class is a class for writing data to different files within the North Shore Hotels database.
+ * @Author Zachary Sandness
+ */
 public class DataFileWriter {
 
     private String fileName;

@@ -1,7 +1,10 @@
 package BackEnd.Amenities;
 
 import BackEnd.Interfaces.Pricable;
-
+/**
+ * The Hiking class is an amenity of the North Shore Hotel that handles the information related to the idea of hiking near this establishment.
+ * @Author Zachary Sandness
+ */
 public class Hiking extends Amenity implements Pricable {
 
     private String trailType, trailLocation;
