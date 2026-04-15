@@ -11,6 +11,9 @@ public class ListOfRooms {
         this.list = list;
     }
 
+    /**
+     * Creates a list of room that the hotel will use.
+     */
     public ListOfRooms() {
         this.list = new ArrayList<>();
 
@@ -116,6 +119,14 @@ public class ListOfRooms {
 
     public void setList(ArrayList<Room> list) {
         this.list = list;
+    }
+
+    public void addRoom(Room roomToAdd){
+        list.add(roomToAdd);
+    }
+
+    public void removeRoom(Room roomToRemove){
+        list.remove(roomToRemove);
     }
 
     @Override

@@ -1,12 +1,26 @@
-import BackEnd.Rooms.ConferenceRoom;
+package BackEnd.Rooms;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ConferenceRoomTest {
 
     @Test
+    void getPrice() {
+        ConferenceRoom cr = new ConferenceRoom("Conference Room",
+                300,
+                74.99,
+                false,
+                false,
+                true
+        );
 
+        assertEquals(84.99, cr.getPrice());
+
+    }
+
+    @Test
     void ToString() {
 
 
@@ -28,7 +42,4 @@ class ConferenceRoomTest {
         assertEquals(expected, actual);
 
     }
-
-
-
 }

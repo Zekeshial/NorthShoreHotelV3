@@ -30,6 +30,10 @@ public class ShoppingCart {
         list.add(item);
     }
 
+    public void removeItemFromCart(Pricable itemToRemove) {
+        list.remove(itemToRemove);
+    }
+
     @Override
     public String toString() {
         return "ShoppingCart{" +

@@ -7,6 +7,7 @@ import BackEnd.Lists.Catalog;
 import BackEnd.Client;
 import BackEnd.DataManagment.DataFileWriter;
 import BackEnd.Interfaces.Pricable;
+import BackEnd.Lists.ListOfRooms;
 import BackEnd.Reservations.Reservation;
 import BackEnd.Rooms.*;
 import BackEnd.Lists.ShoppingCart;
@@ -39,105 +40,7 @@ public class MainPage extends Application {
         Catalog catalog = new Catalog();
 
         //creating a list of all Rooms
-        ArrayList<Room> listOfRooms = new ArrayList<>();
-
-        //Creating the Room's that Exist in the Hotel
-        //Junior Rooms
-        for(int i = 1; i <= 25; i++ ) {
-            listOfRooms.add(new JuniorSuite(
-                    "Junior Suite",
-                    100 + i,
-                    149.99,
-                    false,
-                    false,
-                    (int) Math.ceil((double) i /10)
-            ));
-        }
-        //Executive Rooms
-        for(int i = 1; i <= 10; i++ ) {
-            boolean status = false;
-            if (i % 2 == 0) {
-                status = true;
-            }
-            listOfRooms.add(new ExecutiveSuite(
-                    "Executive Suite",
-                    200 + i,
-                    449.99,
-                    false,
-                    false,
-                    status,
-                    (int) Math.ceil((double) i /5)
-            ));
-        }
-        //Penthouse Rooms
-        listOfRooms.add(new PenthouseSuite(
-                "Penthouse Suite",
-                301,
-                749.99,
-                false,
-                false,
-                true,
-                false,
-                2)
-        );
-        listOfRooms.add(new PenthouseSuite(
-                "Penthouse Suite",
-                302,
-                749.99,
-                false,
-                false,
-                false,
-                true,
-                2)
-        );
-        listOfRooms.add(new PenthouseSuite(
-                "Penthouse Suite",
-                303,
-                749.99,
-                false,
-                false,
-                true,
-                false,
-                3)
-        );
-        listOfRooms.add(new PenthouseSuite(
-                "Penthouse Suite",
-                304,
-                749.99,
-                false,
-                false,
-                false,
-                true,
-                3)
-        );
-        listOfRooms.add(new PenthouseSuite(
-                "Penthouse Suite",
-                305,
-                749.99,
-                false,
-                false,
-                true,
-                true,
-                3)
-        );
-        //Conference Rooms
-        for(int i = 6; i <= 10; i++ ) {
-            boolean status = false;
-            if (i % 2 == 0) {
-                status = true;
-            }
-            listOfRooms.add(new ConferenceRoom(
-                    "Conference Room",
-                    300 + i,
-                    74.99,
-                    false,
-                    false,
-                    status
-            ));
-        }
-
-
-
+        ListOfRooms listOfRooms = new ListOfRooms();
 
 
 
@@ -156,13 +59,11 @@ public class MainPage extends Application {
 
 
         //adding items to the  Observable Catalog
-        for (Amenity amenity : catalog.getList()) {
-            observableCatalog.add(amenity);
-        }
+        observableCatalog.addAll(catalog.getList());
 
 
         //adding Items to the Observable List of Rooms
-        observableRooms.addAll(listOfRooms);
+        observableRooms.addAll(listOfRooms.getList());
 
 
 

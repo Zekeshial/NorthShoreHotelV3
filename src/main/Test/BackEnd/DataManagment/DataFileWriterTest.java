@@ -11,8 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DataFileWriterTest {
 
+
     @Test
-    void addInformation() {
+    void writeMaintenanceRequest() {
         DataFileWriter writer = new DataFileWriter("Test1");
 
         JuniorSuite suite = new JuniorSuite("Junior Suite",
@@ -38,16 +39,5 @@ class DataFileWriterTest {
 //        }
 //
 //        assertEquals(expected, actual.trim());
-
-
-
-
-    }
-
-    @Test
-    void removeInformation() {
-
-
-
     }
 }

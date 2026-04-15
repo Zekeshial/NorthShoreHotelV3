@@ -9,4 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class JuniorSuiteTest {
 
 
+    @Test
+    void getPrice() {
+    }
 }
