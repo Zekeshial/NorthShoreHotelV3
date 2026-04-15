@@ -40,6 +40,10 @@ public class JuniorSuite extends Room {
                 '}';
     }
 
+    /**
+     * Gives you the price of the room based on how many beds are in the room.
+     * @returnThe price of the room as a double.
+     */
     @Override
     public double getPrice() {
             BigDecimal price = new BigDecimal(getRoomPrice() + (suiteNumBeds * 10 - 10));

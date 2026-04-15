@@ -51,6 +51,11 @@ public class Movie extends Amenity implements Pricable {
                 '}';
     }
 
+
+    /**
+     * Give you the price of the amenity
+     * @return The price of the amenity as a double.
+     */
     @Override
     public double getPrice() {
         return getAmenityPrice();

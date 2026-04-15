@@ -1,6 +1,8 @@
 package BackEnd.Amenities;
 
-public abstract class Amenity {
+import BackEnd.Interfaces.Pricable;
+
+public abstract class Amenity implements Pricable {
 
     private String amenityName;
     private boolean amenityAvailability;

@@ -67,6 +67,11 @@ public class Skiing extends Amenity implements Rentable, Pricable {
                 '}';
     }
 
+    /**
+     * This method is a part of an interface called Rentable which allows you to rent gear.
+     * It changes the rent status to true if not already true.
+     * It also prints out messages to the system telling the user if you have rented gear or not.
+     */
     @Override
     public void rentGear() {
         if (gearStatus) {
@@ -77,6 +82,10 @@ public class Skiing extends Amenity implements Rentable, Pricable {
         }
     }
 
+    /**
+     * Gives you the price of the amenity based on if you have rented gear or not
+     * @return The price of the amenity as a double
+     */
     @Override
     public double getPrice() {
         if (isGearStatus()) {

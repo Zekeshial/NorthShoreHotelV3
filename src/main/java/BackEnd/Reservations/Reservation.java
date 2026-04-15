@@ -13,16 +13,16 @@ public class Reservation implements Pricable {
     private int stayDuration;
     private Room room;
 
-    public Reservation(Client customer, LocalDate stayStartDate, int stayDuration, Room room) {
+    public Reservation(Client customer, int stayDuration, Room room) {
         this.customer = customer;
-        this.stayStartDate = stayStartDate;
+        this.stayStartDate = LocalDate.now();
         this.stayDuration = stayDuration;
         this.room = room;
     }
 
     public Reservation() {
         this.customer = null;
-        this.stayStartDate = null;
+        this.stayStartDate = LocalDate.now();
         this.stayDuration = 0;
         this.room = null;
     }
@@ -75,8 +75,18 @@ public class Reservation implements Pricable {
                 '}';
     }
 
+    /**
+     * Gives you the price of a reservation based on the rooms price and its stay duration
+     * @return The price of the reservation as a double
+     */
     @Override
     public double getPrice() {
-        return room.getPrice() * stayDuration;
+        if(getRoom() == null) {
+            return 0;
+        } else if (stayDuration < 0) {
+            return 0;
+        } else {
+            return room.getPrice() * stayDuration;
+        }
     }
 }

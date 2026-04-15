@@ -63,6 +63,11 @@ public class Hiking extends Amenity implements Pricable {
                 '}';
     }
 
+
+    /**
+     * Give you the price of the item
+     * @return Price of the item
+     */
     @Override
     public double getPrice() {
         return getAmenityPrice();

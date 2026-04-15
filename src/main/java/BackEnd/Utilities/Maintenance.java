@@ -8,20 +8,17 @@ public class Maintenance {
 
     private String name, description;
     private Room location;
-    private Date startDate;
 
-    public Maintenance(String name, String description, Room location, Date startDate) {
+    public Maintenance(String name, String description, Room location) {
         this.name = name;
         this.description = description;
         this.location = location;
-        this.startDate = startDate;
     }
 
     public Maintenance() {
         this.name = null;
         this.description = null;
         this.location = null;
-        this.startDate = null;
     }
 
     public String getName() {
@@ -48,13 +45,6 @@ public class Maintenance {
         this.location = location;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
 
     @Override
     public String toString() {
@@ -62,7 +52,6 @@ public class Maintenance {
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
-                ", startDate=" + startDate +
                 '}';
     }
 }
